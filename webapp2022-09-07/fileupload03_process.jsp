@@ -25,6 +25,12 @@
 				String fileName = fileItem.getName();
 				fileName = fileName.substring(fileName.lastIndexOf("\\")+1);
 				File file = new File(fileUploadPath + "/" + fileName);
+				
+				//기존 업로드된 파일 삭제처리
+				if(file.exists()){
+					file.delete();
+				}	
+			
 				fileItem.write(file);
 			}
 		}
