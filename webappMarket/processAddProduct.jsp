@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.oreilly.servlet.*" %>    
+<%@ page import="com.oreilly.servlet.multipart.*" %>
+<%@ page import="java.util.*" %>    
 <%@ page import="dto.Product" %>
 <%@ page import="dao.ProductRepository" %>
 <!DOCTYPE html>
@@ -12,14 +15,34 @@
 	<%
 		request.setCharacterEncoding("utf-8");
 	
-		String productId = request.getParameter("productId");
-		String name = request.getParameter("name");
-		String unitPrice = request.getParameter("unitPrice");
-		String description = request.getParameter("description");
-		String manufacturer = request.getParameter("manufacturer");
-		String category = request.getParameter("category");
-		String unitsInStock = request.getParameter("unitsInStock");
-		String condition = request.getParameter("condition");
+	
+	
+		String filename = "";
+		String realFolder = "D:\\jspStudy\\WebMarket\\src\\main\\webapp\\resources\\images";
+		int maxSize = 5 * 1024 * 1024;
+		String encType = "utf-8";
+	
+		MultipartRequest multi = new MultipartRequest(
+					request,//입력화면 값을 받아오는 내장객체
+					realFolder,//업로드 폴더 위치
+					maxSize,//업로드 파일 최대 크기
+					encType,//인코딩 방식
+					//업로드 파일 처리 정책
+					new DefaultFileRenamePolicy());
+	
+	
+	
+	
+	
+	
+		String productId = multi.getParameter("productId");
+		String name = multi.getParameter("name");
+		String unitPrice = multi.getParameter("unitPrice");
+		String description = multi.getParameter("description");
+		String manufacturer = multi.getParameter("manufacturer");
+		String category = multi.getParameter("category");
+		String unitsInStock = multi.getParameter("unitsInStock");
+		String condition = multi.getParameter("condition");
 		
 		// wrapper클래스 : 기본자료형을 객체타입으로 선언 
 		Integer price;
@@ -40,6 +63,17 @@
 		}else{
 			stock = Long.valueOf(unitsInStock);
 		}
+		
+		
+		
+		//업로드 파일 정보
+				Enumeration files = multi.getFileNames();
+				
+				String fname = (String)files.nextElement();
+				//서버에 실제 업로드 된 파일명
+				String fileName = multi.getFilesystemName(fname);
+		
+		
 		
 		
 		

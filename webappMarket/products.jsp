@@ -16,8 +16,20 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0/css/bootstrap.min.css">
 <meta charset="UTF-8">
 <title>상품 목록</title>
+<style>
+ 	img {
+		width:300px;
+		height:300px;
+		/* 가로,세로 비율을 유지하면서 컨테이너에 꽉차게 표시 */
+		object-fit:cover;
+	}
+</style>
 </head>
 <body>
+
+
+	             
+
 	<jsp:include page="menu.jsp" />
 		<!-- jumbotron ~ display- : 부트스트랩을 이용하여 타이틀 선언 -->
 		<div class="jumbotron">
@@ -60,6 +72,7 @@
 				<!--  ./  :현재 폴더
 				../ :상위 폴더-->
 				<div class="col-md-4">
+					<img src="./resources/images/<%=product.getFilename()%>" style="width:100%">
 					<h3><%=product.getPname() %></h3>
 					<p><%=product.getDescription() %>
 					<p><%=product.getUnitPrice() %>원
