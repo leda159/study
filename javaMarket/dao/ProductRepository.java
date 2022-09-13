@@ -33,20 +33,25 @@ public class ProductRepository {
 		phone.setManufacturer("Apple");
 		phone.setUnitsInStock(1000);
 		phone.setCondition("New");
+		phone.setFilename("P1234.png");
 		
 		Product notebook = new Product("P12345","LG PC 그램",1500000);
+		
 		notebook.setDescription("13.3inch,IPS LED display,5rd Generation Intel Core processors");
 		notebook.setCategory("NoteBook");
 		notebook.setManufacturer("LG");
 		notebook.setUnitsInStock(1000);
 		notebook.setCondition("Refurbished");
+		notebook.setFilename("P1235.png");
 		
 		Product tablet = new Product("P12345","Galaxy",1500000);
+		
 		tablet.setDescription("212.8*125.6*6mm,Super AMOLED display,Octa-Core processors");
 		tablet.setCategory("Tablet");
 		tablet.setManufacturer("Samsung");
 		tablet.setUnitsInStock(1000);
 		tablet.setCondition("Old");
+		tablet.setFilename("P1236.png");
 				
 		
 		//	ArrayList에 3개의 상품을 담아놓았다

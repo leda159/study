@@ -28,6 +28,7 @@ public class Product implements Serializable {
 	private String category;    //분류
 	private long unitsInStock;  //재고 수
 	private String condition;   //신상품 or 중고품 or 재생품
+	private String filename; //이미지 파일명
 	
 	
 	
@@ -65,6 +66,16 @@ public class Product implements Serializable {
 		this.productId = productId;
 		this.pname = pname;
 		this.unitPrice = unitPrice;
+	}
+
+
+	public String getFilename() {
+		return filename;
+	}
+
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 
