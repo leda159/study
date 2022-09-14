@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>day0914</display-name>
+  
+  <!-- 한글처리 필터 선언 -->
+  
+  
+  <filter>
+  	<filter-name>Set Character Encoding</filter-name>
+  	<filter-class><!-- 클래스가있는 위치선언 --> 
+		org.apache.catalina.filters.SetCharacterEncodingFilter 	
+  	</filter-class>
+  	<init-param><!-- 필터 초기값을 선언 -->
+  		<param-name>encoding</param-name> <!-- encoding: 매개변수이름 -->
+  		<param-value>UTF-8</param-value>   <!-- UTF-8: 값 -->
+  	</init-param>
+  </filter>
+  
+
+  
+  
+  <filter-mapping> <!-- 필터를 어느 jsp 페이지에 적용 시킬건지 선언 -->
+  	<filter-name>Set Character Encoding</filter-name>
+  	<url-pattern>/*</url-pattern> <!-- /* : 한글필터를 webapp안에 있는 모든 jsp에 적용시킴 -->
+  </filter-mapping>
+  
+  
+  <filter>
+  	<filter-name>filter01</filter-name>
+  	<filter-class>bigdata.AuthenFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>filter01</filter-name>
+  	<url-pattern>/filter01_process.jsp</url-pattern>
+  </filter-mapping>  
+  
+  
+  
+  <filter>
+  	<filter-name>filter02</filter-name>
+  	<filter-class>bigdata.InitParamFilter</filter-class>
+  	<init-param> <!-- 필터 초기값 -->         
+  		<param-name>param1</param-name>
+  		<param-value>admin</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>param2</param-name>
+  		<param-value>1234</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>filter02</filter-name>
+  	<url-pattern>/filter02_process.jsp</url-pattern>
+  </filter-mapping>  
+  
+  
+  
+  
+  
+  <filter>
+  	<filter-name>Filter05</filter-name>
+  	<filter-class>bigdata.LoginCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>Filter05</filter-name>
+  	<url-pattern>/loginForm_process.jsp</url-pattern>
+  </filter-mapping>
+  
+  
+  
+  
+  
+  
+  
+ <!--  <error-page>
+  	<exception-type>java.lang.ArithmeticExeption</exception-type>
+  	<location>/ExceptionArithmetic.jsp</location>
+  </error-page> -->
+  
+  
+  <error-page>
+  	<exception-type>java.lang.NumberFormatExeption</exception-type>
+  	<location>/ExceptionNumberFormat.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/exception404.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/exception500.jsp</location>
+  </error-page>
+</web-app>
+
+
