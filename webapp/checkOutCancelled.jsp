@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<footer class="container">
-		<p>&copy; WebMarkey</p>
-	</footer>
+
 </body>
 </html>

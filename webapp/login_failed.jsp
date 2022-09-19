@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<footer class="container">
-		<p>&copy; WebMarkey</p>
-	</footer>
+	<%
+		response.sendRedirect("login.jsp?error=1"); //로그인 화면으로 다시 이동
+	%>
 </body>
 </html>

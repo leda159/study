@@ -7,8 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<footer class="container">
-		<p>&copy; WebMarkey</p>
-	</footer>
+	<%
+		//세션에 지정된 모든 속성값을 삭제처리
+		session.invalidate();
+		//상품등록 페이지로 이동
+		response.sendRedirect("addProduct.jsp");
+	%>
 </body>
 </html>
+
+
+
