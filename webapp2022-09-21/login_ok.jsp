@@ -25,7 +25,7 @@
 	
 	
 	 try{
-		 String sql = "select * from member where id ='"+id+"' and pass='"+passwd+"'";
+		 String sql = "select * from member where id ='"+id+"' and passwd='"+passwd+"'";
 		 pstmt = conn.prepareStatement(sql);
 		 rs = pstmt.executeQuery(sql);
 		

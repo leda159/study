@@ -9,18 +9,27 @@
 </head>
 <body>
 <%
+	request.setCharacterEncoding("utf-8");	
+
 	//로그인정보 가져옴
 	String user_id = request.getParameter("id");
-	String user_pw = request.getParameter("passwd");
-
+	String user_name = request.getParameter("name");
+	
 	
 	//세션 불러옴
-	user_id = (String)session.getAttribute("UserID");
-	user_pw = (String)session.getAttribute("UserPASS");
+	user_id = (String)session.getAttribute("session_ID");
+	
+	user_name = (String)session.getAttribute("session_NAME");
+	
+	
+	if(user_id != null){
 
 %>
+	<p>회원 이름 : <%=user_name %></p>
 
-
+<% 
+	}
+%>
 
 <nav class="navbar navbar-expand navbar-dark bg-dark">
 		<div class=" container">
@@ -39,6 +48,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="./join.jsp">회원가입</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./main.jsp">메인</a>
+				</li>
 			</ul>
 		</div>
 		<%
@@ -54,6 +66,9 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="./memberdelete.jsp">회원삭제</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./main.jsp">메인</a>
 				</li>
 			</ul>
 		</div>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="menu.jsp"%>    
+<%@ include file="menu.jsp"%> 
+<%@ page import="java.sql.*" %>  
+<%@ include file ="dbconn.jsp" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,46 +30,11 @@
 			document.frm.email2.value="";
 			document.frm.email2.focus();
 		}
-	}
-</script>
-
-
-<!-- 유효성 검사 -->
-<script>
-	function check(){
-		if(!document.frm.id.value){
-			alert("아이디를 입력하세요.");
-			document.frm.id.focus();
-			return false;
-		}
-		if(!document.frm.passwd.value){
-			alert("비밀번호를 입력하세요.");
-			document.frm.passwd.select();
-			document.frm.passwd.focus();
-			return false;
-		}
-		if(!document.frm.name.value){
-			alert("이름을 입력하세요.");
-			document.frm.name.select();
-			document.frm.name.focus();
-			return false;
-		}
-		if(!document.frm.phone.value){
-			alert("연락처를 입력하세요.");
-			document.frm.phone.select();
-			document.frm.phone.focus();
-			return false;
-		}
-		if(!document.frm.email1.value){
-			alert("이메일 입력하세요.");
-			document.frm.email1.select();
-			document.frm.email1.focus();
-			return false;
-		}
 		
-		document.frm.submit();
+			document.frm.submit();
 	}
 </script>
+
 
 <script>
 <!-- datePicker 선언 -->
@@ -149,18 +116,36 @@
 </script>
 </head>
 <body>
+
+
+<%
+	
+	
+	String sql = "select * from member where id ='"+user_id+"'";
+		 
+		ResultSet rs =null;
+		PreparedStatement pstmt = null;
+			
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery(sql);
+		  
+		
+		 if(rs.next()){
+			 String id = request.getParameter("id");
+		%>
+		
 <div class="jumbotron">
 	<div class="container">
-		<h1 class="display-3">회원가입</h1>
+		<h1 class="display-3">회원수정</h1>
 	</div>
 </div>
 
-<form name="frm" action ="join_insert.jsp" method="post">
+<form name="frm" action ="memberUpdate_insert.jsp" method="post">
  <div style="text-align:left; margin-left:50px;">
 	<div class="form-group row">
 		<label class="col-sm-1">아이디</label>
 		<div class="col-sm-0">
-			<input type="text" name="id" class="form-control">
+			<input type="text" id="id" name="id" class="form-control" value="<%=rs.getString("id")%>">
 		</div>
 	</div>
 	<div class="form-group row">
@@ -172,20 +157,20 @@
 	<div class="form-group row">
 		<label class="col-sm-1">이름</label>
 		<div class="col-sm-0">
-			<input type="text" name="name" class="form-control">
+			<input type="text" name="name" class="form-control" value="<%=rs.getString("name")%>" >
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-sm-1">연락처</label>
 		<div class="col-sm-0">
-			<input type="text"name="phone" class="form-control">
+			<input type="text"name="phone" class="form-control" value="<%=rs.getString("phone")%>" >
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-sm-1">이메일</label>
 		<div class="col-sm-11 form-group row ">
-			<input class="col-sm-2 form-control" type="text" id="email1" name="email1" value="" placeholder="메일을 입력해주세요."> @
-			<input class="col-sm-2 form-control" type="text" id="email2" name="email2" value="" >
+			<input class="col-sm-2 form-control" type="text" id="email1" name="email1" value="<%=rs.getString("email1")%>" placeholder="메일을 입력해주세요."> @
+			<input class="col-sm-2 form-control" type="text" id="email2" name="email2" value="<%=rs.getString("email2")%>" >
 			
 			<select class="col-sm-2 form-control" id="emailList" name="emailList" onchange="return  checkEmail()">
 				<option value="">==선택==</option>
@@ -199,31 +184,36 @@
 	<div class="form-group row">
 		<label class="col-sm-1">생일</label>
 		<div class="col-sm-0">
-			<input type="text" id="birthdate" name="birthdate" class="form-control">
+			<input type="text" id="birthdate" name="birthdate" class="form-control" value="<%=rs.getString("birthdate")%>">
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-sm-1">우편번호</label>
 		<div class="col-sm-3 row">
-			<input type="text" id="postCd" name="postCd" class="col-sm-6 form-control" readonly="readonly">
+			<input type="text" id="postCd" name="postCd" class="col-sm-6 form-control" readonly="readonly" value="<%=rs.getString("postCd")%>" >
 			<i class="col-sm-4 fa fa-search" onclick="postSearch();" style="color:blue; font-size:30px;"></i>       
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-sm-1" >주소</label>
 		<div class="col-sm-0">
-			<input style="width:350px" type="text" id="addr" name="addr" class="form-control"/>
+			<input style="width:350px" type="text" id="addr" name="addr" class="form-control" value="<%=rs.getString("addr")%>" />
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-sm-1">상세 주소</label>
 		<div class="col-sm-0">
-			<input style="width:350px"  type="text" id="addr2" name="addr2" class="form-control"/>
+			<input style="width:350px"  type="text" id="addr2" name="addr2" class="form-control" value="<%=rs.getString("addr2")%>" />
 		</div>
 	</div>
-	<input type="button" value="회원가입" onclick="check();">
+	<input type="button" value="회원수정" onclick="checkEmail();">
  </div>	
-</form>
+</form>		
+		
+		
+<%
+	 }	
+%>
 
 </body>
 </html>

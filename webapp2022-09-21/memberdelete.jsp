@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="menu.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +33,11 @@
 <body>
 <div class="jumbotron">
 	<div class="container">
-		<h3 class="display-3">로그인</h3>
+		<h3 class="display-3">계정 삭제</h3>
 	</div>
 </div>	
 
-<form name="frm" action ="login_ok.jsp" method="post">
+<form name="frm" action ="memberdelete_insert.jsp" method="post">
  <div style="text-align:left; margin-left:50px;">
 	<div class="form-group row">
 		<label class="col-sm-1">아이디</label>
