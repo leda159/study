@@ -1,0 +1,131 @@
+
+day0923 프로젝트 생성
+jstl jar 파일 3개를 lib에 복사
+p590 functions01.jsp
+p591 functions02.jsp
+
+
+
+examdb
+exam
+exam1234
+
+table inspector
+DDL
+
+CREATE TABLE `member` (
+  `id` varchar(30) NOT NULL,
+  `passwd` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `birthday` varchar(10) NOT NULL,
+  `postCd` varchar(5) DEFAULT NULL,
+  `addr` varchar(100) DEFAULT NULL,
+  `addr2` varchar(100) DEFAULT NULL,
+  `regDate` datetime NOT NULL,
+  `updateDate` datetime, 
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+
+memberManage 프로젝트의
+menu.jsp,dbconn2.jsp를 WebMarket 프로젝트로 복사
+
+dbconn2.jsp 수정
+	<sql:setDataSource
+		var="dataSource"
+		driver="com.mysql.cj.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/webmarketdb?serverTimezone=Asia/Seoul"
+		user="koreashop"
+		password="koreashop1234"/>
+
+부트스트랩 4.6 적용된 menu.jsp  
+
+webapp 밑에 member 폴더 생성
+
+
+memberManage 프로젝트의
+
+join.jsp
+join_process.jsp
+login.jsp
+login_process.jsp
+logout.jsp
+memberUpdate.jsp
+memberUpdate_process.jsp,
+memberDelete.jsp 를
+webapp > member 폴더에 복사
+
+menu.jsp 수정
+
+
+memberUpdate_process.jsp
+login_process.jsp 수정
+
+
+
+products.jsp 
+
+============================================
+p598 5번 문제
+-데이터베이스 생성 studentscoredb
+-사용자 : score / score1234
+- 사원테이블 : emp
+  사원코드 empno 문자열(5) pk
+  비밀번호 passwd 문자열(20) not null
+  사원명   ename 문자열(50) not null
+  연락처  phone 문자열(13) not null
+  등록일자 regDate datetime not null
+  수정일자 updateDate datetime
+
+-학생 테이블:student
+ 학생번호 sno 문자열(10) pk
+ 이름    name 문자열(50) not null
+ 학과    departCd 문자열(2) not null
+ 연락처  phone 문자열(13) not null
+ 이메일  email 문자열(50) not null
+ 등록일자 regDate datetime not null
+ 수정일자 updateDate datetime
+
+- 학과테이블 : depart
+  학과    departCd 문자열(2) pk
+  학과명  departName 문자열(50) not null
+  등록일자 regDate datetime not null
+  수정일자 updateDate datetime
+  
+  10 컴퓨터공학과
+  20 경제학과
+  30 수학과
+  40 물리학과
+
+- 메뉴 작성
+
+한국대학교  학과등록 학생등록 학생목록  로그인 사원등록
+
+- 로그인 성공시에만 학과등록,학생등록,학생목록,학과목록
+  보이게 처리
+- 정상로그인시 학과수정 학과삭제 학생수정 학생삭제 
+  메뉴로 보이게 처리
+- 로그인을 클릭하면 login.jsp로 이동
+- 사원등록을 클릭하면 empJoin.jsp로 이동
+- 학과등록을 클릭하면 depart.jsp로 이동
+- 학생등록을 클릭하면 student.jsp로 이동
+- 학생목록을 클릭하면 studentList.jsp로 이동하여
+  수정,삭제 처리
+- 학과목록을 클릭하면 departList.jsp로 이동
+  이동하여 수정,삭제 처리
+
+ 출력형태
+ 학생번호  학과명   이름  연락처 이메일
+ (단,학생번호 순으로 정렬)
+  
+
+
+
+
+
+
