@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<display-name>day0926</display-name>
+<servlet>
+	<servlet-name>myController</servlet-name>
+	<servlet-class>controller.ControllerServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>myController</servlet-name>
+	<url-pattern>/ControllerServlet</url-pattern> <!-- /:루트  ControllerServlet:주소 -->
+</servlet-mapping>
+</web-app>
