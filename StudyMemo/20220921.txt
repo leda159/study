@@ -1,0 +1,87 @@
+
+WebMarket 프로젝트 사용
+p563 processUpdateProduct.jsp 코딩
+
+cos.jar => lib 폴더에 복사
+http://www.servlets.com/
+
+
+
+product.jsp 상세보기 화면 수정
+
+
+addCart.jsp 수정
+
+
+removeCart.jsp 수정
+deleteCart.jsp 수정
+
+
+p567 menu.jsp 수정
+     editProduct.jsp 수정
+p568 deleteProduct.jsp 코딩
+
+
+
+day0921 프로젝트 생성
+
+문제)
+1.데이터베이스 생성:examdb
+2.사용자 : exam
+  비밀번호: exam1234
+3.권한주기
+4.테이블 생성 : member
+  아이디  id 문자열(30) pk
+  비밀번호 passwd 문자열(50) not null
+  이름  name 문자열(50) not null
+  연락처 phone 문자열(50) not null
+  이메일 email 문자열(50) not null
+  생일  birthday 문자열(10) not null
+  우편번호 postCd 문자열(5)
+  도로명주소 addr 문자열(100)
+  상세주소 addr2  문자열(100)
+ 
+mysql> use mysql;
+Database changed
+mysql> create database examdb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create user 'exam'@'%' identified by 'exam1234';
+mysql> grant all privileges on examdb.* to 'exam'@'%';
+mysql> flush privileges;
+
+
+
+ menu.jsp
+ 한국쇼핑몰     로그인  회원가입 
+
+ 회원가입을 클릭하면  join.jsp 로 이동
+ 로그인을 클릭하면 login.jsp로 이동
+ 정상적으로 로그인을 하면 
+ 로그인 글자가 로그아웃으로  표시
+ 회원가입은 회원수정으로 표시
+ 회원삭제 표시한다.
+ 로그아웃을 클릭하면 logout.jsp로 이동
+ 회원수정을 클릭하면 memberUpdate.jsp로 이동
+ 하고 수정완료되면 menu.jsp로 이동
+ 회원삭제를 클릭하면 memberdelete.jsp로 이동하여
+ 로그아웃 처리하고 menu.jsp로 이동
+  
+
+
+ 
+  	
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+

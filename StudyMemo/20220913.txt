@@ -1,0 +1,138 @@
+
+day0913 프로젝트 생성
+p285 4번 
+
+validation01.jsp
+validation01_process.jsp
+
+
+p293
+파일명:localeExample.jsp
+
+
+
+
+jstl jar 다운로드 
+https://tomcat.apache.org/
+
+spring 학습시 많이 사용하는 사이트
+mvnrepository.com
+jstl 검색
+jstl-1.2.jar 파일을 lib 폴더에 복사
+
+p301 setLocaleExample.jsp
+
+myBundle 패키지 생성
+file
+
+myBundle_ko.properties - 한국어 적용
+myBundle_en.properties - 영어 적용
+
+p304
+bundleExample.jsp
+p306
+bundle 패키지 생성
+myBundle_ko.properties
+myBundle_en.properties
+jstl_fmt01.jsp
+p326 5번 문제
+package 명 : examBundle
+myBundle_ko.properties
+myBundle_en.properties
+
+jstl_fmt.jsp
+
+
+
+
+
+
+메뉴
+help > install New Software
+add
+name : bundle
+url: http://propedit.sourceforge.jp/eclipse/updates
+
+PropertiesEditor 만 체크
+
+
+p309
+jstl_fmt02.jsp 코딩
+
+p313
+jstl_fmt03.jsp 코딩
+
+
+GMT(Greenwich Mean Time)
+:그리니치 표준시
+
+전세계 타임존 리스트 출력
+timeZoneList.jsp
+
+p316 jstl_fmt04.jsp 코딩
+
+
+WebMarket 프로젝트 사용
+p318
+bundle 패키지 생성
+message_ko.properties
+message_en.properties
+
+
+jstl jar 3개를 lib 폴더에 복사
+
+p319 addProduct.jsp 수정
+
+p330
+1.인증(Authentication)
+  :시스템 접근시 내가 주체가 되어 
+   내 자신을 확인시키는 과정
+2.인가(Authorization) = 권한부여
+  :어떤 시스템에 접근시 시스템에 대한 권한을 부여
+   받는 과정
+
+이클립스
+Servers
+Tomcat-users.xml 파일이 존재
+<role rolename="manager"/>
+
+<user username="admin"
+  		password="admin1234" roles="manager"/>  
+
+tomcat server restart
+
+
+
+
+
+day0913 프로젝트 에 있는 web.xml 수정
+security01.jsp
+
+
+
+
+login.jsp 생성
+p338
+error.jsp 생성
+
+
+
+
+securityExample 프로젝트 생성
+p354 문제 4번
+role 이름:admin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

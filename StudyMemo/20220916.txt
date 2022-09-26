@@ -1,0 +1,87 @@
+
+p438 WebMarket 프로젝트 사용
+Product.java 수정
+
+p439 product.jsp 수정
+
+
+p440 addCart.jsp 코딩
+ cartlist => cartList
+
+p442 cart.jsp 코딩
+cartlist => cartList
+
+
+
+
+p444 removeCart.jsp 코딩
+p446 deleteCart.jsp 코딩
+
+
+day0916 프로젝트 생성
+p448 4번 문제
+session.jsp
+session_process.jsp
+welcome.jsp
+session_out.jsp
+
+쿠키
+- 파일 한개당 4KB 이하
+- 300개 까지 허용
+
+세션
+- 크기 제한 없음
+
+
+
+day0916 프로젝트 사용
+p456
+cookie01.jsp
+cookie01_process.jsp 코딩
+
+
+
+
+
+
+p459 cookie02.jsp 코딩
+
+p460 cookie03.jsp 코딩
+
+쿠키문제-------------------------------------
+빅데이터_B > jsp > 수업자료 폴더에 있는
+쿠키문제.jpg 
+session_login.jsp
+session_login_process.jsp
+-아이디가 test가 아니면 아이디가 없습니다 경고창
+-비밀번호가 test1234가 아니면 비밀번호 오류 경고창
+-아이디가 test이고 비밀번호가 test1234이면
+ 로그인 되었습니다. 경고창 표시후 session_main.jsp로
+ 이동
+-로그인상태유지 버튼 클릭시 
+ 쿠키를 생성(userid) 하고 쿠키 유효시간 5분 적용
+
+session_main.jsp
+출력화면
+메인페이지
+XXX님이 로그인 했습니다. 로그아웃 버튼 표시
+- 로그아웃 버튼 클릭시 session_logout.jsp로 이동
+- 로그인 상태유지 체크박스를 클릭한 경우에는
+  session id 속성을 쿠키정보(userid)로 생성하고
+  로그인 상태유지 체크박스를 클릭하지 않은 경우에는
+  session id 속성을 입력한 id값으로 지정
+
+
+session_logout.jsp
+-쿠키의 유효시간을 0로 지정
+-로그아웃 되었다는 경고창 표시후 session_login.jsp로 이동
+
+
+
+
+
+
+
+
+
+

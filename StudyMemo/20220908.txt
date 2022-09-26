@@ -1,0 +1,220 @@
+day0907 프로젝트 의
+fileupload01.jsp
+fileupload01_process.jsp를
+lib 폴더에 있는 jar도 복사
+day0908 프로젝트에 복사
+
+
+
+
+day0908 프로젝트 
+p234
+fileupload04.jsp
+fileupload04_process.jsp
+
+
+
+WebMarket 프로젝트 사용
+p239 Product.java 수정
+
+p240 ProductRepository.java 수정
+
+
+
+
+
+webapp
+   resources
+        css
+        js
+        images
+
+
+빅데이터_B > jsp > 수업자료
+P1234.png,P1235.png,P1236.png
+을 images 폴더에 복사
+
+p241 products.jsp 수정
+
+Refresh using native hooks or polling 클릭
+파일업로드시 즉시 반영
+
+p242 product.jsp 수정
+
+
+
+
+
+p243 
+WebMarket lib 폴더에 cos.jar 복사
+
+p244 addProduct.jsp 수정
+
+p245 processAddProduct.jsp 수정
+
+
+
+
+addProduct.jsp 
+
+
+
+
+
+
+day0908 프로젝트에 코딩
+
+p255 
+validationExample.jsp
+
+p256 
+validationExample2.jsp
+
+
+p260
+validation02.jsp
+validation02_process.jsp
+
+
+
+<input type="button">
+
+자동 submit 동작
+<button></button>
+
+ASCII 코드표 검색
+
+
+
+
+p271 정규표현식
+regExpExample.jsp
+
+
+
+
+
+p274 validation05.jsp
+p276 validation05_process.jsp
+
+p279
+WebMarket 프로젝트
+webapp > resources > js 폴더에
+validation.js 파일 생성
+
+
+
+
+p282 
+addProduct.jsp 수정
+상품등록시 모든 항목 체크 추가
+
+function CheckAddProduct(){
+	var productId = document.getElementById("productId");
+	var name = document.getElementById("name");
+	var unitPrice = document.getElementById("unitPrice");
+	var unitsInStock = document.getElementById("unitsInStock");
+	
+	var description = document.newProduct.description.value;
+	var manufacturer = document.newProduct.manufacturer.value;
+	var category = document.newProduct.category.value;
+	var productImage = document.newProduct.productImage.value;
+	//check 함수
+	//첫번째 매개변수:정규표현식
+	//두번째 매개변수:상품등록화면의 속성값
+	//세번째 매개변수:정규표현식 부합하지 않을때 에러메시지
+	if(!check(/^P[0-9]{4,11}$/,productId,"[상품 코드]\nP와 숫자를 조합하여 5-12자리까지 입력하세요")){
+		return false;
+	}
+	
+	if(name.value.length < 4 || name.value.length > 12){
+		alert("[상품명]\n 최소 4자리에서 12자리까지 입력하세요");
+		name.select();
+		name.focus();
+		return false;
+	}
+	
+	if(unitPrice.value.length == 0 || isNaN(unitPrice.value)){
+		alert("[가격]\n숫자만 입력하세요");
+		unitPrice.select();
+		unitPrice.focus();
+		return false;		
+	}
+	
+	if(unitPrice.value < 0){
+		alert("[가격]\n음수는 입력할 수 없습니다.");
+		unitPrice.select();
+		unitPrice.focus();
+		return false;
+	}else if (!check(/^\d+(?:[.]?[\d]?[\d])?$/,unitPrice,"[가격]\n소숫점 둘째 자리까지만 입력하세요")){
+		return false;
+	}
+	
+	if(!description){
+		alert("[상세정보]\n상세정보를 입력하세요.");
+		description.select();
+		description.focus();
+		return false;
+	}
+	
+	if(!manufacturer){
+		alert("[제조사]\n제조사를 입력하세요.");
+		manufacturer.select();
+		manufacturer.focus();
+		return false;
+	}
+	
+	if(!category){
+		alert("[분류]\n분류를 입력하세요.");
+		category.select();
+		category.focus();
+		return false;
+	}
+	
+	if(unitsInStock.value.length == 0 || isNaN(unitsInStock.value)){
+		alert("[재고수]\n숫자만 입력하세요");
+		unitsInStock.select();
+		unitsInStock.focus();
+		return false;
+	}
+	
+	if($("input:radio[name='condition']").is(":checked") == false){
+			alert("상품상태를 반드시 선택하세요!");
+			return false;
+	}
+	
+	if(!productImage){
+		alert("[이미지]\n이미지를 업로드 하세요.");
+		productImage.select();
+		productImage.focus();
+		return false;
+	}
+	
+	
+	function check(regExp,e,msg){
+		if(regExp.test(e.value)){
+			return true;
+		}
+		
+		alert(msg);
+		e.select();
+		e.focus();
+		return false;
+	}
+	
+	document.newProduct.submit();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
