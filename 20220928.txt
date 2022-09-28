@@ -1,0 +1,92 @@
+
+
+BoardController.java 
+
+
+http://localhost:8080/project/list.jsp
+
+(1) request.getContextPath()
+    /project 리턴
+
+(2) request.getRequestURI()
+    /project/list.jsp 리턴
+
+(3) request.getRequestURL()
+    http://localhost:8080/project/list.jsp
+
+(4) request.ServletPath()
+    /list.jsp
+
+(5) request.getRealPath()
+    실제 물리적인 위치 리턴
+
+
+
+/project/list.jsp
+
+webapp 폴더밑에
+  board 폴더 생성
+  list.jsp 코딩
+  view.jsp 코딩
+  writeForm.jsp 코딩
+
+
+menu.jsp 실행
+
+게시판 등록화면 실행
+http://localhost:8080/WebMarket/BoardWriteForm.do
+
+
+
+
+BoardDAO.java
+getBoardList()메서드
+
+빅데이터_B > jsp > 수업자료 > 게시판 폴더에 
+있는 jsp 3개 복사
+
+
+CREATE TABLE `member` (
+  `id` varchar(30) NOT NULL,
+  `passwd` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `birthday` varchar(10) NOT NULL,
+  `postCd` varchar(5) DEFAULT NULL,
+  `addr` varchar(100) DEFAULT NULL,
+  `addr2` varchar(100) DEFAULT NULL,
+  `regDate` datetime NOT NULL,
+  `updateDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+view.jsp - 게시판 상세보기
+
+menu.jsp - 메인
+
+
+
+
+
+회원가입 화면에
+아이디 중복체크 버튼 추가
+
+
+
+webapp
+  member - join.jsp 수정
+
+member 폴더에 confirmId.jsp 생성
+
+
+
+dao 패키지에
+SignUpDAO.java 생성
+
+
+
+
+
+
