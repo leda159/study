@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dto.Product" %>
-<%@ page import="dao.ProductRepository" %>
+<%@ page errorPage="exceptionNoProductId.jsp" %>
+<%@ include file="dbconn.jsp"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel = "stylesheet" href="./resources/css/bootstrap.min.css" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -17,13 +16,19 @@
 	object-fit:cover;
 	}
 </style>
+<script>
+
+	//상품리스트에서 선택한 상품을 장바구니에 담는 함수 
+	function addToCart(){
+		if(confirm("상품을 장바구니에 추가하시겠습니까?")){
+			document.addForm.submit();
+		}else{
+			document.addForm.reset();			
+		}
+	}	
+</script>
 </head>
 <body>
-	
-	<!-- 자바빈즈를 이용 -->
-	<jsp:useBean id="productDAO"
-	             class="dao.ProductRepository"
-	             scope="session"/>
 	             
     <jsp:include page="menu.jsp"/>
     
@@ -37,36 +42,54 @@
     	/* products.jsp 페이지에서 선택한 상품코드값 */
     	String id = request.getParameter("id");
     
-    	//page209
-    	ProductRepository dao = ProductRepository.getInstance();
-    	    
-    	/* 상품목록에서 상세보기 버튼을 클릭한 상품정보가 대입 */
-    	Product product = dao.getProductById(id); 
+     	PreparedStatement pstmt = null;
+     	ResultSet rs = null;
+     	
+     	String sql = 
+     		"select * from product where p_id = ?";
+     	
+     	pstmt = conn.prepareStatement(sql);
+     	
+     	pstmt.setString(1,id);
+     	
+     	rs = pstmt.executeQuery();
+     	
+     	if(rs.next()){
+
     %>
     
      <div class="container">
     	<div class="row">
     		<div class="col-md-5">
-    			<img src="./resources/images/<%=product.getFilename()%>" style="width:100%">
+    			<img src="./resources/images/<%=rs.getString("p_fileName")%>" style="width:100%">
     		</div>		
     		<div class="col-md-6">
-    			<h3><%=product.getPname()%></h3>
-    			<p><%=product.getDescription()%>
+    			<h3><%=rs.getString("p_name")%></h3>
+    			<p><%=rs.getString("p_description")%>
     			<p><b>상품코드:</b>
     			<span class="badge badge-danger">
-    				<%=product.getProductId()%>
+    				<%=rs.getString("p_id")%>
     			</span>
-    			<p><b>제조사:</b><%=product.getManufacturer()%>
-    			<p><b>분류:</b><%=product.getCategory()%>
-    			<p><b>재고수:</b><%=product.getUnitsInStock()%>
-    			<h4><%=product.getUnitPrice()%></h4>
-    			<p><a href="#" class="btn btn-info">상품주문 &raquo;</a>
-    			<a href="./products.jsp" class="btn btn-secondary">상품목록 &raquo;</a>
+    			<p><b>제조사:</b><%=rs.getString("p_manufacturer")%>
+    			<p><b>분류:</b><%=rs.getString("p_category")%>
+    			<p><b>재고수:</b><%=rs.getLong("p_unitsInStock")%>
+    			<h4><%=rs.getInt("p_unitPrice")%>원</h4>
+    			<p>
+    			<form name="addForm" 
+    			      action="./addCart.jsp?id=<%=rs.getString("p_id")%>" method="post">
+    				<a href="#" class="btn btn-info" onclick="addToCart();">상품주문 &raquo;</a>
+    				<a href="./cart.jsp" class="btn btn-warning">장바구니 &raquo;</a>
+    				<a href="./products.jsp" class="btn btn-secondary">상품목록 &raquo;</a>
+    			</form>
     		</div>
     	</div>
     	<hr>
-    	<jsp:include page="footer.jsp"/>
     </div>
+    <%
+     	}
+    %>
+    
+    <jsp:include page="footer.jsp"/>
 </body>
 </html>
 

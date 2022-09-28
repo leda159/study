@@ -7,8 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<footer class="containter">
-		<p>&copy;WebMarket</p>
-	</footer>
+	<%
+		response.sendRedirect("login.jsp?error=1");
+	%>
 </body>
 </html>
+
+
+
