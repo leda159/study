@@ -73,7 +73,17 @@ products.jsp
 ============================================
 p598 5번 문제
 -데이터베이스 생성 studentscoredb
+mysql> use mysql
+Database changed
+mysql> create database studentscoredb;
+Query OK, 1 row affected (0.01 sec)
+
 -사용자 : score / score1234
+
+mysql> create user 'score'@'%' identified by 'score1234';
+mysql> grant all privileges on studentscoredb.* to 'score'@'%';
+mysql> flush privileges;
+
 - 사원테이블 : emp
   사원코드 empno 문자열(5) pk
   비밀번호 passwd 문자열(20) not null
