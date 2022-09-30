@@ -1,34 +1,30 @@
 
+d 드라이브에 SpringStudy 폴더 생성
+
 spring 설치방법
+
 1.현재 이클립스 + 플러그인(plug-in) 설치
 2.전용툴
   STS3(Spring Tool Suite 3)
   => Spring Framework 방식
 
-  p25 
-  http://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3	
-  Latest STS3 Downloads
-https://download.springsource.com/release/STS/3.9.18.RELEASE/dist/e4.21/spring-tool-suite-
-3.9.18.RELEASE-e4.21.0-win32-x86_64.zip
-
-
-
   STS4(Spring Tool Suite 4)
   => Spring Boot 전용
 
+p25 STS3(Spring Tool Suite 3) 다운로드
+  http://github.com/spring-projects/toolsuite-distribution/wiki/Spring-Tool-Suite-3	
+  Latest STS3 Downloads
+  https://download.springsource.com/release/STS/3.9.18.RELEASE/dist/e4.21/spring-tool-suite-
+  3.9.18.RELEASE-e4.21.0-win32-x86_64.zip
 
-
-
-
-
-sts-bundle
-sts-3.9.18.RELEASE 폴더를
-d드라이브로 복사
+압축풀면 sts-bundle
+sts-3.9.18.RELEASE 폴더를 d드라이브로 복사
 
 sts.ini - 설정파일
+
+openFile 밑에 추가
 -vm
 C:\Program Files\Java\jdk-11.0.16.1\bin\javaw.exe
-
 
 STS3 초기 설정
 -tomcat 서버 설정
@@ -48,9 +44,11 @@ Spring legacy Project
 Spring mvc project 선택
 top level package 명 : org.bigdata.controller
 
+project facets : 자바버전 변경,runtime check
+
 설정
 1.자바버전 변경:11,runtime check
-2.pom.xml 파일 수정
+2.pom.xml 파일 수정 - 설정파일
 <java-version>11</java-version>
 <org.springframework-version>5.0.7.RELEASE</org.springframework-version>
 83라인 주석처리
