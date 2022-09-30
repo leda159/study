@@ -1,0 +1,469 @@
+문제)
+1.사용자 생성:shop 비밀번호:shop1234
+2.사용자에게 권한주기
+3.sqldeveloper 연결
+  name:쇼핑몰
+4.테이블 생성
+  학생테이블(student)
+  학생번호(sno) 숫자(5) pk
+  학생명(name) 문자열(50) not null
+  연락처(phone) 문자열(13)
+
+  1000 홍길동 010-1111-2222
+  2000 이순신 010-2222-3333
+  3000 강감찬 010-5555-6666
+
+  insert into student
+       values (1000,'홍길동','010-1111-2222');
+  insert into student
+       values (2000,'이순신','010-2222-3333');
+  insert into student
+       values (3000,'강감찬','010-5555-6666');
+  commit;
+  
+  select * from student;
+
+  SID 확인하는 방법
+  
+  select * from v$instance;	
+
+
+  성적테이블(score)
+  학생번호(sno) 숫자(5) pk
+  국어성적(kor) 숫자(3) not null
+  영어성적(eng) 숫자(3) not null
+  수학성적(math) 숫자(3) not null
+  총점(total) 숫자(3)
+  학점(grade) 문자열(1)
+  
+  1000 100 90 70
+  2000 80  60 50
+  3000 70  87 76
+
+  insert into score(sno,kor,eng,math)
+       values (1000,100,90,70);
+  insert into score(sno,kor,eng,math)
+       values (2000,80,60,50);
+  insert into score(sno,kor,eng,math)
+       values (3000,70,87,76);
+  commit;
+
+  select * from score;
+
+학생코드 학생명 국어 영어 수학 총점
+(단 학생이름순)
+
+
+select s.sno as 학생번호,
+       s.name as 학생명,
+       s1.kor as 국어성적,
+       s1.eng as 영어성적,
+       s1.math as 수학성적,
+       s1.kor + s1.eng + s1.math as 총점,
+       round((s1.kor + s1.eng + s1.math) / 3,0) as 평균,
+       case when round((s1.kor + s1.eng + s1.math) / 3,0) >= 90 then 'A'
+            when round((s1.kor + s1.eng + s1.math) / 3,0) >= 80 then 'B'
+            when round((s1.kor + s1.eng + s1.math) / 3,0) >= 70 then 'C'
+            when round((s1.kor + s1.eng + s1.math) / 3,0) >= 60 then 'D'
+	    else 'F'
+        end as 학점
+  from student s,score s1
+ where s.sno = s1.sno;
+
+
+문제)
+
+국어,영어,수학 점수에 대한  합계를 update문을
+사용하여 구하는 쿼리를 작성하세요
+
+update 테이블명
+   set 컬럼1 = 값1,
+       컬럼2 = 값2;
+
+update score
+   set total = kor + eng + math,
+       grade = case when round((kor + eng + math)/3,0) >= 90 then 'A'
+		    when round((kor + eng + math)/3,0) >= 80 then 'B'
+		    when round((kor + eng + math)/3,0) >= 70 then 'C'	
+		    when round((kor + eng + math)/3,0) >= 60 then 'D'	
+		    else 'F'
+               end;
+
+commit;
+
+
+
+
+select * from score;
+
+문제)
+보너스(comm)를 받지 않는 사원 명단을 출력하세요
+
+select empno as 사원번호,
+       ename as 사원명
+  from emp
+ where comm is null;
+
+문제)
+직속상관(mgr)이 있는 사원명단을 다음과 같이 출력하는
+쿼리를 작성하세요
+
+사원번호 사원명 직속상관번호 직속상관명
+(단 사원번호순으로 정렬)
+
+셀프조인(self join):같은 테이블 조인
+
+select e1.empno as 사원번호,
+       e1.ename as 사원명,
+       e1.mgr as 직속상관사원번호,
+       e2.ename as 직속상관명
+  from emp e1,emp e2
+ where e1.mgr = e2.empno
+   and e1.mgr is not null
+order by e1.empno;
+
+
+
+
+
+cartesian product join
+두테이블의 자료를 조회하기 위한 조인방식
+
+select *
+  from emp,dept;
+
+outer join(=외부조인)
+사원테이블 자료는 반드시 조회되어야 하고
+부서테이블에는 자료가 없을 수도 있다는 조인방식
+
+select e.empno as 사원번호,
+       e.ename as 사원명,
+       e.sal   as 급여
+  from emp e,dept d
+ where e.deptno = d.deptno(+)
+order by e.empno;
+
+오라클 테스트에 작성
+
+집합 연산자
+tblUnionA 
+name 문자열(50)
+insert문을 사용하여 사과,귤,파인애플,바나나,포도 추가
+
+insert into tblUnionA values('사과');
+insert into tblUnionA values('귤');
+insert into tblUnionA values('파인애플');
+insert into tblUnionA values('바나나');
+insert into tblUnionA values('포도');
+commit;
+
+
+tblUnionB 
+name 문자열(50)
+insert 문을 사용하여 키위,바나나,오렌지,포도,복숭아 추가
+
+insert into tblUnionB values('키위');
+insert into tblUnionB values('바나나');
+insert into tblUnionB values('오렌지');
+insert into tblUnionB values('포도');
+insert into tblUnionB values('복숭아');
+commit;
+
+
+
+
+
+1.교집합 
+
+  select name from tblUnionA
+  intersect
+  select name from tblUnionB; 
+
+
+2.차집합 
+  tblUnionA 테이블에만 있는 자료 검색
+  select name from tblUnionA
+  minus
+  select name from tblUnionB;	
+
+  tblUnionB 테이블에만 있는 자료 검색
+ 
+  select name from tblUnionB
+  minus
+  select name from tblUnionA;
+
+3.합집합
+  사용조건: 위,아래 테이블의 조회 컬럼수가 동일해야 하고
+          자료형태도 반드시 동일해야 한다.
+  1) union 
+     -합집합,양쪽테이블에 있는 자료 모두 가져오는데
+      중복되는 항목을 한번만 가져온다.
+   
+  select name as 과일이름 from tblUnionA
+  union
+  select name from tblUnionB;
+   
+  2) union all
+     -합집합,양쪽테이블에 있는 자료 모두 가져오는데
+      중복되는 항목을 모두 가져온다.
+   
+
+  select name from tblUnionA
+  union all
+  select name from tblUnionB;
+
+
+
+
+
+다중행 함수(=통계함수):sum,avg,count
+
+문제)
+10번,30번 부서 직원의 급여 합계를 구하시오
+
+급여 총합계:XXX,XXX원
+
+to_char(숫자,패턴):숫자를 원하는 문자열 패턴으로 변환
+하는 함수
+
+select '급여 총합계:' || 
+	to_char(sum(sal),'FM999,999,999') ||'원'
+  from emp
+ where deptno in (10,30);
+
+문제)
+
+30번 부서 직원에 대해 다음과 같이 출력하는 쿼리를 작성하세요
+
+총인원수:XXX명,총급여:XXX,XXX원,평균급여:XXX,XXX원
+
+select '총인원수:'||count(*)||'명,'||
+       '총급여:'||to_char(sum(sal),'FM999,999,999')||'원,'||
+       '평균급여:'||to_char(round(avg(sal),0),'FM999,999,999')||'원'
+  from emp
+ where deptno = 30;
+
+
+다중행 함수 max(),min()
+문제)
+20번 부서의 직원중 가장 빠른 입사일자와
+가장 늦은 입사일자를 출력하는 쿼리를 작성하세요
+
+min(컬럼명):최소값,max(컬럼명):최대값
+
+select min(hiredate) as 가장빠른입사일자,
+       max(hiredate) as 가장늦은입사일자
+  from emp
+ where deptno = 20;
+
+문제)
+10번 혹은 20번 부서 사원중에서 보너스(comm)을 받지 않고
+직속상관이 있는 사원들에 대해 다음과 같이 출력하세요
+
+사원수 급여합계 최소급여 최대급여
+
+select count(*) as 사원수,
+       sum(sal) as 급여합계,
+       min(sal) as 최소급여,
+       max(sal) as 최대급여
+  from emp
+ where deptno in (10,20)
+   and comm is null
+   and mgr is not null;
+
+
+
+부서별 급여합계와 보너스 합계를 구하시오
+
+부서코드 부서명 급여합계 보너스합계
+(단 부서코드순으로 정렬)
+
+select e.deptno as 부서코드,
+       max(d.dname) as 부서명,
+       sum(e.sal) as 급여합계,
+       sum(e.comm) as 보너스합계
+  from emp e,dept d
+ where e.deptno = d.deptno
+group by e.deptno
+order by e.deptno;
+
+
+
+
+
+
+
+
+문제)
+10번,30번 부서에 사원에 대해
+다음과 같이 출력하도록 쿼리를 작성하세요
+부서코드 부서명 직원수 평균급여 급여총계
+(단,부서코드 순으로 정렬)
+
+select e.deptno as 부서코드,
+       max(d.dname) as 부서명,
+       count(*) as 직원수,
+       round(avg(sal),0) as 평균급여,
+       sum(sal) as 급여총계
+  from emp e,dept d
+ where e.deptno = d.deptno
+   and e.deptno in (10,30)
+group by e.deptno
+order by e.deptno;
+
+문제)
+10번 혹은 30번 부서직원중 급여가 8000원에서
+13000원 사이인 사원에 대해 다음과 같이 출력하는
+쿼리를 작성하세요(부서별 직책별)
+
+부서코드 부서명 직책 직원수 급여합계 보너스합계 총합계
+
+select e.deptno as 부서코드,
+       max(d.dname) as 부서명,
+       e.job as 직책,
+       count(*) as 직원수,
+       sum(e.sal) as 급여합계,
+       sum(e.comm) as 보너스합계,
+       sum(e.sal) + sum(e.comm) as 총합계	 
+  from emp e,dept d
+ where e.deptno = d.deptno
+   and e.deptno in (10,30)
+   and e.sal between 8000 and 13000
+group by e.deptno,e.job
+order by e.deptno,e.job;
+
+select * 
+  from emp 
+where deptno = 30 and job = 'CLERK';
+
+문제)
+
+
+20번,30번 부서 사원에 대해 다음과 같이 출력하도록
+쿼리를 작성하세요
+
+부서코드 부서명 직책수 직원수 최소급여 최대급여 급여합계
+(단,부서코드순)
+
+select e.deptno as 부서코드,
+       max(d.dname) as 부서명,
+       count(distinct job) as 직책수,
+       count(*) as 직원수,
+       min(sal) as 최소급여,
+       max(sal) as 최대급여,
+       sum(sal) as 급여합계	
+  from emp e,dept d
+ where e.deptno = d.deptno
+   and e.deptno in (20,30)
+group by e.deptno
+order by e.deptno;
+
+
+
+
+
+오라클 교재 > 6장 그룹함수.ppt 
+
+having문
+group by 를 수행하면서 동시에 조건을 줄수 있는 명령문
+
+문제) 부서별 평균급여가 2000원 이상인 부서내역을
+     출력하세요
+     
+     부서코드 부서명 평균급여(단,부서코드 순 정렬)
+
+    select e.deptno as 부서코드,
+           max(d.dname) as 부서명,
+           round(avg(sal),0) as 평균급여
+      from emp e,dept d
+     where e.deptno = d.deptno
+  group by e.deptno
+  having round(avg(sal),0) >= 5000
+  order by e.deptno;
+
+
+
+
+
+
+문제) 부서별로 다음과 같이 출력하는 쿼리를 작성하세요
+     단,인원수가 20명 이상인 부서만 출력
+  
+     부서코드 부서명 인원수 급여합계
+     (부서코드 순으로 정렬)
+
+
+     select e.deptno as 부서코드,
+            max(d.dname) as 부서명,
+            count(e.empno) as 인원수,
+	    sum(e.sal) as 급여합계 
+       from emp e,dept d
+      where e.deptno = d.deptno
+   group by e.deptno
+   having count(e.empno) >= 20
+   order by e.deptno;
+
+문제)
+부서별 급여를 많이 받는 사원명을 가로로 출력하세요
+부서코드 사원명
+
+select deptno as 부서코드,
+       listagg(ename,',') 
+       within group(order by sal desc)
+  from emp
+group by deptno;
+
+
+수업자료 8장 서브쿼리
+
+
+서브쿼리(SubQuery)?
+SQL문장을 실행하는데 필요한 데이터를 추가로 조회하기
+위해 SQL문 내부에서 사용되는 SELECT문을 말함.
+
+
+문제) SCOTT과 같은 부서에 근무하는 사원명단을 
+     출력하는 쿼리를 작성하세요
+
+     부서코드  부서명 사원명 급여
+
+     select e.deptno as 부서코드,
+            d.dname as 부서명,
+            e.ename as 사원명,
+            e.sal as 급여
+       from emp e,dept d
+      where e.deptno = d.deptno	 
+        and e.deptno = (select deptno
+		          from emp
+                         where ename = 'SCOTT');
+
+     
+
+
+
+
+문제)
+서브쿼리를 이용하여 다음 결과가 나오도록 쿼리를 작성하세요.
+10번,30번 부서 사원의 평균급여보다 급여를 많이 받는
+사원명단을 출력하세요
+
+부서코드 부서명 사원코드 사원명 급여
+(단,부서코드,급여 내림차순으로 정렬)
+
+select e.deptno as 부서코드,
+       d.dname as 부서명,
+       e.empno as 사원코드,
+       e.ename as 사원명,
+       e.sal as 급여
+  from emp e,dept d
+ where e.deptno = d.deptno
+   and e.sal > (select round(avg(sal),0)
+		  from emp
+		 where deptno in (10,30))
+order by e.deptno,e.sal desc;
+
+
+
+
+
+

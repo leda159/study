@@ -1,0 +1,804 @@
+인덱스(index)
+- sql문은 order by 문장에 의해 시간이 많이
+  걸리므로 자주 사용하는 컬럼에 대해서는 인덱스를
+  생성하여 사용하는 것을 권장
+
+오라클테스트에 쿼리 작성
+
+인덱스 생성
+create index 인덱스명 on 테이블명(컬럼);
+create index idx_emp_ename on emp(ename);
+Index IDX_EMP_ENAME이(가) 생성되었습니다.
+
+drop index 인덱스명;
+drop index idx_emp_ename;
+Index IDX_EMP_ENAME이(가) 삭제되었습니다
+
+Hint(힌트): 옵티마이저에게 개발자가 sql문을
+           원하는 방식으로 처리하도록 하기 위함
+
+create table test(
+  id number not null primary key,
+  name varchar2(20)
+);
+
+insert into test values('4','홍길동4');
+insert into test values('3','홍길동3');
+insert into test values('5','홍길동5');
+insert into test values('1','홍길동1');
+commit;
+
+
+select *
+  from test
+order by name desc;
+
+인덱스 생성
+create index idx_test_name on test(name);
+
+drop index idx_test_name;
+
+//오름차순으로 이름에 대해 인덱스 생성
+create index idx_test_name on test(name);
+
+힌트 선언
+
+//이름을 내림차순으로 힌트 사용
+select /*+index_desc(test,idx_test_name)*/ *
+  from test
+where name is not null;
+
+함수이름: f_deptname
+
+매개변수이름:p_deptno number
+모드
+in : 입력매개변수 지정시 사용
+out :출력매개변수 지정시 사용
+inout:입력+출력 매개변수 지정시 사용
+
+
+CREATE OR REPLACE FUNCTION F_DEPTNAME 
+(
+  P_DEPTNO IN NUMBER 
+) RETURN VARCHAR2 
+IS
+v_deptname varchar2(100);
+
+BEGIN
+  
+   select dname
+     into v_deptname
+     from dept
+    where deptno = p_deptno;
+
+   return v_deptname;
+	
+
+END F_DEPTNAME;
+
+컴파일됨 
+
+
+
+select deptno as 부서명,
+       f_deptname(deptno) as 부서명,
+       empno as 사원코드,
+       ename as 사원명
+  from emp
+ where deptno = 10
+order by empno;
+
+
+문제)
+함수명 : f_salary (연봉을 구하는 함수)
+매개변수:p_empno
+연봉계산:급여*12 + 보너스*5
+
+부서코드 부서명 사원코드 사원명 연봉
+(단,부서코드,연봉 내림차순으로 정렬)
+
+
+
+
+create or replace function f_salary
+(
+   p_empno in number		
+) return number
+is
+v_salary number(11);
+
+begin
+
+  select sal*12 + nvl(comm,0)*5
+    into v_salary
+    from emp
+   where empno = p_empno;	
+
+  return v_salary;
+
+end f_salary;
+
+
+
+
+
+
+select deptno as 부서코드,
+       f_deptname(deptno) as 부서명,
+       empno as 사원코드,
+       ename as 사원명,
+       f_salary(empno) as 연봉
+  from emp
+order by deptno,f_salary(empno) desc;
+
+
+
+
+PL/SQL
+- SQL 쿼리만으로 구현이 어려운 경우 사용하는
+  프로그래밍 언어
+
+PL/SQL 처리결과를 콘솔창에 출력한다는 선언
+set serveroutput on;
+
+
+begin
+   dbms_output.put_line('안녕하세요!');
+end;
+
+안녕하세요!
+PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+declare
+  v_empno number(4) := 7000;
+  v_name varchar2(10) := '홍길동';
+
+begin
+   dbms_output.put_line('사원코드:' || v_empno);
+   dbms_output.put_line('사원명:' || v_name);
+end;
+
+사원코드:7000
+사원명:홍길동
+
+declare
+  v_deptno dept.deptno%type := 50;
+begin
+  dbms_output.put_line('부서코드:'||v_deptno);
+end;
+
+부서코드:50
+
+
+declare
+  v_dept_row dept%rowtype;
+begin
+  select deptno,dname,loc
+    into v_dept_row
+    from dept
+   where deptno = 10;
+
+   dbms_output.put_line(
+         '부서코드:' || v_dept_row.deptno);
+   dbms_output.put_line(
+         '부서명:' || v_dept_row.dname);
+   dbms_output.put_line(
+         '부서위치:' || v_dept_row.loc);
+  
+end;
+
+부서코드:10
+부서명:회계팀
+부서위치:부산
+
+
+pl/sql 문에서 조건문 사용
+
+declare
+ v_number number := 20;
+
+begin
+   if mod(v_number,2) = 0 then
+      dbms_output.put_line(v_number ||'는 짝수');
+   else
+      dbms_output.put_line(v_number ||'는 홀수');	
+   end if;
+end;
+
+
+20는 짝수
+
+case 문 활용
+declare
+  v_score number := 80;
+begin
+  case when v_score >= 90 then dbms_output.put_line('A학점');
+       when v_score >= 80 then dbms_output.put_line('B학점');
+       when v_score >= 70 then dbms_output.put_line('C학점');
+       when v_score >= 60 then dbms_output.put_line('D학점');	
+       else dbms_output.put_line('F학점');	
+  end case;
+end;
+
+B학점
+
+반복문 loop
+
+declare
+  v_num number := 0;
+begin
+  loop
+    dbms_output.put_line('현재v_num:'||v_num);
+    v_num := v_num + 1;
+    exit when v_num > 4;
+  end loop;
+end;
+
+현재v_num:0
+현재v_num:1
+현재v_num:2
+현재v_num:3
+현재v_num:4
+
+
+반복문 while loop
+declare
+  v_num number := 0;
+begin
+  while v_num < 4 loop
+    dbms_output.put_line('현재 v_num:'||v_num);
+    v_num := v_num + 1;
+  end loop;
+end;
+
+현재 v_num:0
+현재 v_num:1
+현재 v_num:2
+현재 v_num:3
+
+반복문 for loop
+
+
+begin
+   for i in 0..4 loop
+       dbms_output.put_line('현재i값:'||i);
+   end loop;
+end;
+
+
+현재i값:0
+현재i값:1
+현재i값:2
+현재i값:3
+현재i값:4
+
+
+
+
+
+문제)
+PL/SQL을 이용하여 다음과 같이 콘솔창에 출력되도록
+작성하세요(조건문,반복문 사용)
+1부터 100까지 숫자에 대해
+
+짝수합:XXXX
+홀수합:XXXX
+총합계:XXXX
+
+
+declare
+  even_sum number := 0;  --짝수누계변수
+  odd_sum number := 0;   --홀수누계변수
+  total_sum number := 0; --총합계누계변수
+begin
+  for i in 1..100 loop
+ 
+     if mod(i,2) = 0 then --짝수이면
+        even_sum := even_sum + i;
+     else --홀수이면
+        odd_sum := odd_sum + i;
+     end if;      
+
+     total_sum := total_sum + i;
+
+  end loop;
+
+  dbms_output.put_line('짝수합:'||even_sum);
+  dbms_output.put_line('홀수합:'||odd_sum);
+  dbms_output.put_line('총합계:'||total_sum);
+
+end;
+
+
+짝수합:2550
+홀수합:2500
+총합계:5050
+
+PL/SQL 반복문
+
+
+--역순으로 반복문 처리
+begin
+   for i in reverse 0..4 loop
+       dbms_output.put_line('현재i값:'||i);
+   end loop;
+end;
+
+현재i값:4
+현재i값:3
+현재i값:2
+현재i값:1
+현재i값:0
+
+커서(Cursor)?
+SQL문을 실행후 결과값을 가지고 있는 메모리 영역을
+가리키는 포인터를 말함
+
+declare
+  v_dept_row dept%rowtype;
+
+cursor c1 is
+  select deptno,dname,loc
+    from dept;
+
+begin
+    open c1;
+ 
+    loop
+
+       fetch c1 into v_dept_row;
+
+       exit when c1%notfound;
+
+       dbms_output.put_line('부서코드:'||v_dept_row.deptno);
+       dbms_output.put_line('부서명:'||v_dept_row.dname);
+       dbms_output.put_line('부서위치:'||v_dept_row.loc);
+
+    end loop;
+
+    close c1;
+
+end;
+
+
+부서코드:10
+부서명:회계팀
+부서위치:부산
+부서코드:20
+부서명:연구소
+부서위치:대구
+부서코드:30
+부서명:영업팀
+부서위치:서울
+부서코드:40
+부서명:전산팀
+부서위치:대전
+
+
+문제)
+CURSOR를 이용하여 쿼리를 작성하세요
+커서명:c_emp_info
+
+10번,30번 부서 직원중 상사직원이 있고
+급여가 2000원에서 12000원 사이인 사원명단을 출력한다.
+
+출력
+
+부서코드 부서명 사원코드 사원명 급여
+(단 부서코드,사원코드순)
+
+declare
+   v_deptno dept.deptno%type; --부서코드변수
+   v_dname dept.dname%type; --부서명변수
+   v_empno emp.empno%type; --사원번호변수
+   v_ename emp.ename%type; --사원명변수
+   v_sal emp.sal%type; --급여변수
+
+   cursor c_emp_info is
+      select e.deptno,
+             d.dname,
+             e.empno,
+             e.ename,
+             e.sal
+        from emp e,dept d
+       where e.deptno = d.deptno
+         and e.deptno in (10,30)
+         and e.mgr is not null
+         and e.sal between 2000 and 12000
+      order by e.deptno,e.empno;
+
+begin
+    open c_emp_info;
+
+    loop
+       fetch c_emp_info into v_deptno,v_dname,v_empno,v_ename,v_sal;      
+
+       exit when c_emp_info%NOTFOUND;
+
+       dbms_output.put_line(v_deptno||' '||v_dname||' '||v_empno||' '||v_ename||' '||v_sal);
+
+    end loop;
+
+  close c_emp_info;
+
+end;
+
+
+10 회계팀 5 Cox 5965
+10 회계팀 6 Howard 5965
+10 회계팀 7 Ward 5965
+10 회계팀 16 Sanders 8900
+10 회계팀 17 Price 5266
+10 회계팀 18 Bennett 12000
+10 회계팀 19 Wood 5967
+10 회계팀 26 Powell 5967
+10 회계팀 27 Long 5968
+10 회계팀 28 Patterson 5968
+10 회계팀 29 Hughes 5968
+10 회계팀 30 Flores 5968
+10 회계팀 31 Washington 5968
+10 회계팀 32 Butler 5968
+10 회계팀 33 Simmons 5968
+10 회계팀 34 Foster 5968
+10 회계팀 35 Gonzales 5969
+10 회계팀 36 Bryant 5969
+10 회계팀 37 Alexander 5969
+10 회계팀 38 Russell 5969
+10 회계팀 39 Griffin 5969
+10 회계팀 40 Diaz 5969
+10 회계팀 41 Hayes 5969
+10 회계팀 42 Myers 5970
+10 회계팀 43 Ford 5970
+10 회계팀 44 Hamilton 5970
+10 회계팀 45 Graham 5970
+10 회계팀 46 Sullivan 5970
+10 회계팀 47 Wallace 5970
+10 회계팀 48 Woods 5970
+10 회계팀 49 Cole 5970
+10 회계팀 50 West 5971
+10 회계팀 51 Jordan 5971
+10 회계팀 52 Owens 5971
+10 회계팀 53 Reynolds 5971
+10 회계팀 54 Fisher 5971
+10 회계팀 55 Ellis 5971
+10 회계팀 56 Harrison 5971
+10 회계팀 57 Gibson 5972
+10 회계팀 58 Mcdonald 5972
+10 회계팀 59 Cruz 5972
+10 회계팀 60 Marshall 5972
+10 회계팀 61 Ortiz 5972
+10 회계팀 62 Gomez 5972
+10 회계팀 63 Murray 5972
+10 회계팀 64 Freeman 5972
+10 회계팀 65 Wells 5973
+10 회계팀 66 Webb 5973
+10 회계팀 67 Simpson 5973
+10 회계팀 68 Stevens 5973
+10 회계팀 69 Tucker 5973
+10 회계팀 91 Daniels 5976
+10 회계팀 92 Palmer 5976
+10 회계팀 93 Mills 5976
+10 회계팀 94 Nichols 5976
+10 회계팀 95 Grant 5977
+10 회계팀 96 Knight 5977
+10 회계팀 97 Ferguson 5977
+10 회계팀 98 Rose 5977
+10 회계팀 99 Stone 5977
+10 회계팀 7698 BLAKE 10850
+10 회계팀 7844 TURNER 9500
+10 회계팀 7902 FORD 11000
+30 영업팀 8 Torres 2008
+30 영업팀 70 Porter 2070
+30 영업팀 71 Hunter 2071
+30 영업팀 72 Hicks 2072
+30 영업팀 73 Crawford 2073
+30 영업팀 74 Henry 2074
+30 영업팀 75 Boyd 2075
+30 영업팀 76 Mason 2076
+30 영업팀 77 Morales 2077
+30 영업팀 78 Kennedy 2078
+30 영업팀 79 Warren 2079
+30 영업팀 80 Dixon 2080
+30 영업팀 7369 SMITH 8800
+30 영업팀 7499 ALLEN 9600
+30 영업팀 7521 WARD 9250
+30 영업팀 7566 JONES 10975
+30 영업팀 7654 MARTIN 9250
+30 영업팀 7782 CLARK 10450
+30 영업팀 7788 SCOTT 11000
+30 영업팀 7876 ADAMS 9100
+30 영업팀 7900 JAMES 8950
+30 영업팀 7934 MILLER 9300
+
+
+
+
+
+
+Stored Procedure(스토어 프로시저)
+
+프로시저 이름 : insert_dept
+
+v_deptno in number
+v_dname  in varchar2
+v_loc    in varchar2
+
+
+CREATE OR REPLACE PROCEDURE INSERT_DEPT 
+( V_DEPTNO IN NUMBER,
+  V_DNAME IN VARCHAR2,
+  V_LOC IN VARCHAR2 
+) AS 
+BEGIN
+
+  insert into dept
+         values(v_deptno,v_dname,v_loc);
+
+  commit;
+
+  dbms_output.put_line('부서 데이터 등록 성공');
+
+END INSERT_DEPT;
+
+프로시저 실행방법
+
+execute 프로시저명(매개변수1,....);
+
+execute insert_dept(99,'영업5팀','대전');
+부서 데이터 등록 성공
+
+select * from dept;
+
+
+
+문제)
+
+1.테이블 생성(student)
+학생번호(sno) 문자열(5) pk
+학생이름(sname) 문자열(50) not null
+국어성적(kor) 숫자(3) not null
+영어성적(eng) 숫자(3) not null
+수학성적(math) 숫자(3) not null
+총점(total) 숫자(3)
+평균(avg) 숫자(3)
+학점(grade) 문자열(1)
+
+2. 프로시저를 생성하고 프로시저를 실행
+- 프로시저명:insert_score
+- 데이터
+  1000 홍길동 국어:90,영어:80,수학:70
+  2000 이순신 국어:50,영어:60,수학:73
+  3000 강감찬 국어:68,영어:90,수학:65
+
+
+create or replace procedure insert_score
+(
+  v_sno in varchar2,
+  v_sname in varchar2,
+  v_kor in number,
+  v_eng in number,
+  v_math in number   
+) as
+
+begin
+    insert into student(sno,sname,kor,eng,math)
+           values(v_sno,v_sname,v_kor,v_eng,v_math);
+
+    commit;
+
+    dbms_output.put_line('정상적으로 학생정보 등록');
+
+end;
+
+  1000 홍길동 국어:90,영어:80,수학:70
+  2000 이순신 국어:50,영어:60,수학:73
+  3000 강감찬 국어:68,영어:90,수학:65
+
+  execute insert_score('1000','홍길동',90,80,70);
+  execute insert_score('2000','이순신',50,60,73);
+  execute insert_score('3000','강감찬',68,90,65);
+
+정상적으로 학생정보 등록
+
+select * from student;
+
+
+
+
+문제)
+-프로시저명:update_score
+-매개변수:p_sno
+-총점,평균,학점을 update하는 프로시저 작성
+-학점은 평균이 90점 이상이면 A
+       평균이 80점대 이면 B
+       평균이 70점대 이면 C
+       평균이 60점대 이면 D
+       평균이 60점 미만이면 F
+
+
+create or replace procedure update_score
+(p_sno in varchar2)
+as
+begin
+
+  update student
+     set total = kor + eng + math,
+         avg = round((kor + eng + math)/3,0),
+         grade = case when round((kor + eng + math)/3,0) >= 90 then 'A'
+                      when round((kor + eng + math)/3,0) >= 80 then 'B'
+	              when round((kor + eng + math)/3,0) >= 70 then 'C'
+                      when round((kor + eng + math)/3,0) >= 60 then 'D'
+                      else 'F'
+                 end
+     where sno = p_sno;
+
+     commit;
+
+     dbms_output.put_line('정상적으로 학생 정보 수정');     
+
+end;
+
+execute update_score(1000);
+execute update_score(2000);
+execute update_score(3000);
+
+select * from student;
+
+
+문제)
+-프로시저명:delete_score
+-매개변수: p_sno
+-이순신만 삭제하는 프로시저 생성
+
+create or replace procedure delete_score
+(p_sno in varchar2)
+as
+begin
+
+     delete from student
+           where sno = p_sno;
+     
+     commit;
+
+     dbms_output.put_line('정상적으로 학생 정보 삭제');     
+
+end;
+
+execute delete_score('2000');
+
+select * from student;
+
+
+
+-----------------------------------
+
+Trigger 예제
+
+1. 상품테이블(product)
+
+상품코드 (pcode) 문자열(4) 기본키
+상품명 (pname) 문자열(100) not null,
+제조사 (company) 문자열(100)
+판매가격(saleprice) 숫자(11),
+재고수량(stockqty) 숫자(11) 기본값 0
+
+2.입고테이블(ipgo)
+
+입고번호(ipgono) 숫자(11) 기본키
+상품코드(pcode) 문자(4) 
+입고일자(ipdate) 날짜 기본값 sysdate
+입고수량(ipgoqty) 숫자(11)
+입고단가(ipgoprice) 숫자(11)
+입고금액(ipgoamt) 숫자(11)
+
+3.입고테이블 시퀀스(ipgo_seq) 생성
+
+  create sequence ipgo_seq;
+
+4.상품테이블 데이터 등록하는 insert문 생성(sequence사용)
+
+상품명:마우스 제조사:삼성 가격:1000
+상품명:키보드 제조사:LG 가격:2000
+상품명:핸드폰 제조사:애플 가격:3000
+
+insert into product(pcode,pname,company,saleprice)
+      values(ipgo_seq.nextval,'마우스','삼성',1000);
+insert into product(pcode,pname,company,saleprice)
+      values(ipgo_seq.nextval,'키보드','LG',2000);
+insert into product(pcode,pname,company,saleprice)
+      values(ipgo_seq.nextval,'핸드폰','애플',3000);
+commit;
+
+select * from product;
+
+-- 입고테이블에 입고처리가 되면 상품테이블의 재고수량을
+-- 증가시키는 트리거
+create or replace trigger ipgo_insert
+after insert on ipgo
+for each row
+
+begin
+     update product
+        set stockqty = stockqty + :new.ipgoqty
+      where pcode = :new.pcode;
+end;
+
+
+insert into ipgo
+     values(ipgo_seq.nextval,
+            2,
+            sysdate,
+            10,
+            1000,
+            10000);
+commit;
+            
+select * from ipgo;
+
+select * 
+  from product
+ where pcode = 2;
+
+입고수량을 변경하는 경우의 트리거 예제
+create or replace trigger ipgo_update
+after update on ipgo
+for each row
+begin
+
+  update product
+     set stockqty = stockqty - :old.ipgoqty
+                   + :new.ipgoqty
+   where pcode = :new.pcode;
+
+end;
+
+
+
+update ipgo 
+   set ipgoqty = 20,
+       ipgoamt = 20000
+ where ipgono = 6;
+
+ commit;
+
+
+
+
+select * 
+  from product
+ where pcode = 2;
+  
+입고내역 삭제시 재고 반영 트리거 예제
+create or replace trigger ipgo_delete
+after delete on ipgo
+for each row
+begin
+
+    update product
+       set stockqty = stockqty - :old.ipgoqty
+     where pcode= :old.pcode;
+
+end;
+
+
+
+delete from ipgo
+      where ipgono = 6;
+
+commit;
+
+
+
+
+select * 
+  from product
+ where pcode = 2;
+
+
+
+
+
+
+
+
