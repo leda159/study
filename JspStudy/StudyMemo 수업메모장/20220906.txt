@@ -1,0 +1,145 @@
+
+p139 WebMarket 프로젝트에 코딩
+
+products.jsp 코딩
+
+
+
+
+welcome.jsp
+menu.jsp
+
+day0906 프로젝트 생성
+
+p152 request01.jsp
+     request01_process.jsp    
+
+
+
+
+hobby.jsp
+hobby_process.jsp
+
+
+
+
+
+
+
+p154 request02.jsp 코딩
+
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cache-Control: max-age=0
+Connection: keep-alive
+Cookie: JSESSIONID=806F6F0DA84026AC0FC36D8A788D4DDC
+Host: localhost:8080
+sec-ch-ua: "Chromium";v="1
+
+
+
+
+p157 request03.jsp 코딩
+http://localhost:8080/day0906/request03.jsp?id=test&name=admin
+
+
+
+
+p161 response01.jsp
+p162 response01_proecess.jsp
+p163 response01_success.jsp
+     response01_failed.jsp
+
+문제)
+header.jsp
+body.jsp
+footer.jsp
+login.jsp - 로그인 화면
+login_process.jsp
+logout.jsp
+
+
+로그인 을 클릭하면 로그인 화면을 표시
+아이디:XXX
+비밀번호:XXX
+로그인 
+
+만약 아이디가 admin 이고 비밀번호가 5678이면
+로그인을 로그아웃으로 변경하고 아이디나 비밀번호가 틀리면
+로그인 화면으로 이동처리
+
+
+
+
+p165 헤더정보 변경
+
+response02.jsp 코딩
+
+원격 빅데이터_B > jsp > 수업자료 폴더에
+회원가입.jpg 복사
+파일명:memberJoin.jsp
+가입하기를 클릭하면 memberJoin_process.jsp 이동
+조건
+가입하기 버튼 클릭시 입력값 여부 확인
+
+출력
+아이디:XXX   
+비밀번호:XXXX
+이름:XXX
+연락처:XXXX
+성별:XX
+취미:XX XX XX
+가입인사:XXX
+
+
+
+
+
+p173 WebMarket 프로젝트에 코딩
+상품정보 상세보기 처리
+ProductRepository.java 수정
+
+p174
+products.jsp 수정 - 상세보기 버튼 추가
+./ : 현재 폴더
+../ : 상위 폴더
+
+부트스트랩
+class="클래스명 속성1 속성2 속성3...."
+
+p174 product.jsp 코딩
+
+
+
+     <div class="container">
+    	<div class="row">
+    		<div class="col-md-6">
+    			<%=product.getPname() %>
+    			<h3><%=product.getPname()%></h3>
+    			<p><%=product.getDescription()%>
+    			<p><b>상품코드:</b>
+    			<span class="badge badge-danger">
+    				<%=product.getProductId()%>
+    			</span>
+    			<p><b>제조사:</b><%=product.getManufacturer()%>
+    			<p><b>분류:</b><%=product.getCategory()%>
+    			<p><b>재고수:</b><%=product.getUnitsInStock()%>
+    			<h4><%=product.getUnitPrice()%></h4>
+    			<p><a href="#" class="btn btn-info">상품주문 &raquo;</a>
+    			<a href="./products.jsp" class="btn btn-secondary">상품목록 &raquo;</a>
+    		</div>
+    	</div>
+    	<hr>
+    	<jsp:include page="footer.jsp"/>
+    </div>
+
+
+
+
+
+
+
+
+
+

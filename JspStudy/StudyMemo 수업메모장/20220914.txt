@@ -1,0 +1,120 @@
+
+day0913 프로젝트 사용
+p345 security02.jsp
+
+WebMarket 프로젝트 사용
+tomcat-users.xml
+p348 web.xml 수정
+
+p349 login.jsp 코딩
+p351 login_failed.jsp 코딩
+     logout.jsp 코딩
+p352 addProduct.jsp 수정
+
+
+
+
+
+
+day0914 프로젝트 생성
+p360 errorPage.jsp
+     errorPage_error.jsp
+문제)
+divide.jsp
+첫번째수:XXXX
+두번째수:XXXX
+계산 버튼을 클릭하면 divide_process.jsp로 이동하되
+두번째수를 0을 입력하면 예외처리(divideException.jsp)
+한다. => 분모는 0으로 나눌 수 없습니다 출력
+
+출력결과
+XXX / XXX = XXX
+
+java.lang.ArithmeticException: / by zero
+
+
+web.xml
+exception500.jsp
+
+exception404.jsp
+
+ExceptionNumberFormat.jsp
+ExceptionArithmetic.jsp
+
+p375 tryCatch.jsp
+     tryCatch_process.jsp
+p376 tryCatch_error.jsp
+
+
+WebMarket 프로젝트 사용
+p378 exceptionNoProductId.jsp 코딩
+http://localhost:8080/WebMarket/exceptionNoProductId.jsp?id=P99999
+
+p378 product.jsp 수정
+
+p379 web.xml 수정
+
+p380 exceptionNoPage.jsp 코딩
+
+products.jsp
+
+http://localhost:8080/WebMarket/products2.jsp
+
+p384 5번 문제
+examException 프로젝트 생성
+exception.jsp
+exception_process.jsp
+
+web.xml
+-NullPointerException 처리
+-exceptionNullPointer.jsp
+ 입력되지 않은 값을 확인하세요
+
+p389 필터(Filter) ?
+Servlet 2.3버전 부터 추가된 기능으로
+클라이언트가 서버로 요청할때 요청이 Servlet으로
+전달되기 전,후에 필터링 하기 위한 기술로
+주로 한글처리,로그기능,예외처리등을 처리함
+
+
+한글처리 필터
+web.xml - 배포서술자
+day0914 프로젝트 사용
+
+filterTest.jsp
+filterTest_process.jsp
+
+p396 
+package : bigdata
+AuthenFilter.java 코딩
+
+p398 web.xml 수정
+
+p399 filter01.jsp
+     filter01_process.jsp
+
+p400 
+bigdata 패키지에
+InitParamFilter.java 코딩
+
+p402 web.xml 수정
+
+p403 filter02.jsp
+     filter02_process.jsp
+
+p417 4번 문제
+    loginForm.jsp
+
+    - day0914 프로젝트에 작성
+    - bigdata 패키지 사용
+      LoginCheckFilter.java 코딩
+
+
+
+
+cyon5000@paran.com
+
+
+
+
+

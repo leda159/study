@@ -1,0 +1,168 @@
+WebMarket 프로젝트 사용
+p463 cart.jsp 수정
+
+p463 배송정보
+shippingInfo.jsp 코딩
+
+menu.jsp 수정
+
+아이콘 추가 
+https://fontawesome.com/v4/examples/
+
+우편번호 api 검색
+https://postcode.map.daum.net/guide
+사용자가 선택한 값 이용하기
+
+datepicker 사용
+
+menu.jsp 수정
+<link rel="stylesheet"
+      href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>      
+
+p466
+processShippingInfo.jsp 코딩
+ 
+p467
+orderConfirmation.jsp 코딩
+
+products.jsp 실행
+
+
+p470 thankCustomer.jsp
+p473 checkOutCancelled.jsp 코딩
+
+장바구니에서
+장바구니 내역이 없는 경우 주문버튼을 클릭하면
+장바구니 내역이 없습니다. 주문하세요 경고창 출력
+
+cart.jsp 수정
+- 버튼 이동
+
+day0919 프로젝트 생성
+
+p475 문제 3번
+cookie.jsp
+cookie_process.jsp
+아이디가 admin,비밀번호가 admin1234 아니면
+아이디나 비밀번호를 확인하세요 경고창 출력
+welcome.jsp
+cookie_out.jsp
+
+
+p481
+
+mysql 다운로드
+www.oracle.com
+
+MySQL Community (GPL) Downloads »
+MySQL Installer for Windows
+Windows (x86, 32-bit), MSI Installer
+다운받아 설치
+
+mysql jdbc 드라이버 파일 다운로드
+Connector/J
+platform independent
+Platform Independent
+(Architecture Independent), ZIP Archive
+다운로드
+mysql-connector-java-8.0.30.jar
+프로젝트 lib 폴더에 복사
+
+환경변수 path 설정
+C:\Program Files\MySQL\MySQL Server 8.0\bin;
+
+workbench만 설치
+dev.mysql.com/downloads/workbench
+
+빅데이터_B > jsp >수업자료>설치프로그램
+mysql-workbench-community-8.0.30-winx64.exe
+
+c:>mysql -u root -p
+
+mysql> use mysql;
+
+mysql> create database testdb;
+
+mysql> create user 'member'@'%' identified by 'member1234';
+
+mysql> grant all privileges on testdb.* to 'member'@'%';
+
+즉시 권한을 적용
+mysql> flush privileges;
+
+mysql 데이터베이스 생성
+- 데이터베이스 이름:testdb
+- 사용자 생성: member
+  사용자 비밀번호:member1234
+- 권한주기
+- workbench 연결 설정(JSP테스트)
+
+connection name : JSP테스트
+user name:member
+
+table name : student
+
+sno  varchar(5) pk
+name varchar(50) not null
+phone varchar(13) not null
+
+
+CREATE TABLE `testdb`.`student` (
+  `sno` VARCHAR(5) NOT NULL COMMENT '학생번호',
+  `name` VARCHAR(50) NOT NULL COMMENT '학생이름',
+  `phone` VARCHAR(13) NOT NULL COMMENT '학생연락처',
+  PRIMARY KEY (`sno`));
+
+
+data insert
+
+1000 강감찬 010-1234-5678
+2000 이순신 010-5678-9012
+3000 홍길동 010-4567-8901
+
+insert into student
+       values('1000','강감찬','010-1234-5678');
+insert into student
+       values('2000','이순신','010-5678-9012');
+insert into student
+       values('3000','홍길동','010-4567-8901');
+commit;
+
+테이블 구조를 보여준다.
+desc student;
+
+
+mysql 데이터베이스 생성
+- 데이터베이스 이름:koreashop
+- 사용자 생성: shop
+  사용자 비밀번호:shop1234
+- 권한주기
+- workbench 연결 설정(한국쇼핑몰)
+- 테이블
+  member
+  id  문자열(5) pk
+  name  문자열(50) not null
+  passwd 문자열(50) not null
+  phone 문자열(13) not null
+  addr  문자열(100) 
+
+mysql> create database koreashop;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create user 'shop'@'%' 
+          identified by 'shop1234';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all privileges  on koreashop.* to 'shop'@'%';
+
+
+
+
+
+
+
+
+
+

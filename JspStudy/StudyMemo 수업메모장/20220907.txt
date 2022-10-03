@@ -1,0 +1,101 @@
+
+WebMarket 프로젝트 사용
+p176 welcome.jsp 수정
+
+day0907 프로젝트 생성
+
+p190 selectExample.jsp
+
+p195
+checkBoxExample.jsp
+process.jsp
+
+문제
+<%
+   if (request.getMethod().equals("POST"){
+	calc.execute();
+   }	
+%>
+
+
+calculator.jsp
+자바빈즈를 이용
+beans 패키지 생성한다
+Calculator.java 클래스 생성
+필드 num1,num2,op,result
+메서드:execute - 사칙연산 계산하는 메서드
+
+
+
+p200 form06.jsp 
+p201 form06_process.jsp 코딩     
+
+
+
+
+WebMarket 프로젝트 사용
+p202 addProduct.jsp 코딩
+
+p206
+ProductRepository.java 수정
+
+p206
+processAddProduct.jsp 코딩
+
+p208 products.jsp 수정
+
+p209 product.jsp 수정
+
+
+
+day0907 프로젝트에 작성
+p212 6번문제
+form03.jsp
+form03_process.jsp
+
+
+
+
+p218
+MultipartRequest 이용 파일 업로드
+cos.jar 다운로드
+http://www.servlets.com/
+
+cos.jar 파일을 day0907 프로젝트
+의 lib 폴더에 복사
+
+p222 fileupload01.jsp
+     fileupload01_process.jsp
+
+
+
+c드라이브에 upload 폴더 생성
+
+
+
+
+p225 fileupload02.jsp
+     fileupload02_process.jsp
+
+p229 Commons-FileUpload 이용한 업로드
+https://commons.apache.org/
+
+commons-io-2.11.0-bin.zip
+
+
+commons-fileupload-1.4-bin.zip 다운로드
+
+commons-io-2.11.0.jar
+commons-fileupload-1.4.jar
+
+day0907 프로젝트의 lib 폴더에 복사
+
+p232 fileupload03.jsp
+     fileupload03_process.jsp  
+
+
+
+
+
+
+
