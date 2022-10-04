@@ -38,6 +38,17 @@
 		</dependency>
 		 <!-- lombok시작 -->  
      
+     
+     
+     
+     
+           		 mybatis 사용관련 jar 선언 - pom.xml
+			1. mybatis 검색
+			2. mybatis-spring 검색
+			3. spring-tx 검색
+			4. spring-jdbc 검색
+     
+     
 		<!-- mybatis관련 jar 설정 시작(4개) -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
