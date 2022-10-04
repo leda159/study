@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+    
+<!-- 인터페이스의 위치를 선언 -->
+<mapper namespace="org.bigdata.mapper.TimeMapper">
+	<!-- select문을 실행하는 태그 -->
+	<!-- TimeMapper 인터페이스에 있는 getTime2()메서드가 호출되면 
+		 select문이 실행 resultType -->
+	<select id="getTime2" resultType="string">
+		select sysdata from dual
+	</select>
+</mapper>    
