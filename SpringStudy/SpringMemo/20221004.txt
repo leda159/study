@@ -1,0 +1,277 @@
+
+project name : day1004
+top level package:org.bigdata.controller
+
+한글 필터 web.xml 수정
+
+
+http://localhost:8080 
+src/main/java
+org.bigdata.controller
+ExamController.java 생성
+
+ joinProcess
+
+
+
+회원가입 URL 입력화면 실행
+http://localhost:8080/join
+
+src/main/java
+org.bigdata.dto 패키지 생성
+Join.java 클래스 생성
+
+views 폴더에
+joinProcess2.jsp 생성
+
+
+
+
+http://localhost:8080/join
+
+
+
+
+p89 mybatis 사이트
+https://mybatis.org/mybatis-3/ko/index.html
+
+mybatis 사용관련 jar 선언 - pom.xml
+1. mybatis 검색
+2. mybatis-spring 검색
+3. spring-tx 검색
+4. spring-jdbc 검색
+
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.4.6</version>
+</dependency>
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>1.3.2</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-tx</artifactId>
+    <version>5.0.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>5.0.7.RELEASE</version>
+</dependency>
+
+p91 root-context.xml 수정
+ex00 프로젝트의 root-context.xml
+
+SQLSessionFactory?
+SQLSession을 생성하는 객체로 Connection을
+생성하거나 실행하려는 SQL을 mybatis로 전달하고
+결과값을 리턴받는다.
+
+
+src/main/java 
+org.bigdata.mapper 패키지 생성
+TimeMapper.java 인터페이스 생성
+
+p95 mybatis 관련 설정 수정
+    root-context.xml 수정
+    namespaces -> mybatis-spring 선택
+
+
+p96
+src/test/java
+org.fintech.persistence 패키지 생성
+TimeMapperTests.java 클래스 생성
+
+pom.xml 수정
+ojdbc8 검색
+org.fintech.persistence.TimeMapperTests 
+- 2022-10-04 12:16:49
+
+
+p99
+src/main/resources
+org
+bigdata
+mapper
+xml file
+TimeMapper.xml 생성
+
+
+p99
+TimeMapper.java 인터페이스 수정
+
+p100
+TimeMapper.xml 수정
+
+
+
+
+
+
+
+p101
+log4jdbc-log4j2 설정
+데이터베이스와 연동시 내부적으로 처리되는 사항을
+상세하게 콘솔창에 보여주는 라이브러리
+
+pom.xml 추가
+
+log4jdbc-log4j2 검색
+
+<dependency>
+    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+    <version>1.16</version>
+</dependency>
+
+p102
+src/main/resources
+log4jdbc.log4j2.properties 파일 생성
+log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+
+p102
+root-context.xml 수정
+
+로그 레벨  정의
+src/main/resources
+log4j.xml
+
+로그 레벨 종류
+log.info();
+
+1.trace:처리 추적시 사용
+2.info :기본값으로 처리절차를 콘솔창에 출력
+3.debug:오류 검증시 사용
+4.warn:warning(경고)
+5.error:심각한 오류 발생시 사용
+
+https://spring.io/
+
+
+
+
+p111 
+pom.xml 수정 - 서블릿 버전 변경
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>javax.servlet-api</artifactId>
+	<version>3.1.0</version>
+	<scope>provided</scope>
+</dependency>
+
+p125
+src/main/java
+org.bigdata.controller
+SampleController.java 클래스 생성
+
+
+SpringStudy > 수업자료
+Spring 동작순서.pdf 파일 복사
+
+src/main/resources
+log4j.xml 수정
+
+http://localhost:8080/sample
+
+p128 SampleController.java 수정
+
+
+
+http://localhost:8080/sample/basic
+INFO : org.bigdata.controller.SampleController
+ - basicGet() 메서드 실행중
+
+INFO : org.bigdata.controller.SampleController 
+- basicGet2() 메서드 실행중
+
+
+
+
+문제)
+1.org.bigdata.controller에
+  TestController.java 클래스 생성
+
+2.org.bigdata.dto 패키지에
+  Student.java 클래스 생성
+  필드선언 (private)
+  학생번호:sno
+  학생이름:name
+  학생주소:addr
+  학생연락처:phone
+
+3.http://localhost:8080/test/student을 주소창에
+  치면 student.jsp가 실행되도록 코딩
+  학생번호:XX
+  학생이름:XXX
+  학생주소:XXX
+  학생연락처:XXX
+  학생등록 버튼을 클릭하면
+  /studentProcess url이 실행되도록 코딩
+
+주소창에
+http://localhost:8080/test/studentProcess
+이렇게 표시되도록 처리
+
+4.studentProcess.jsp
+  학생정보
+  학생번호:XX
+  학생이름:XXX
+  학생주소:XXX
+  학생연락처:XXX
+
+  
+
+
+
+
+
+http://localhost:8080/test/student
+http://localhost:8080/test/studentProcess
+
+p131
+SampleController.java 수정
+
+http://localhost:8080/sample/ex02?name=admin&age=30
+
+views 폴더에 ex02.jsp 생성
+
+
+
+
+SampleControll.java 사용
+
+주소 url이
+http://localhost:8080/sample/fruitList로
+
+요청이 들어오면 Controller에서
+ArrayList를 사용하여 
+사과,배,멜론,수박을 추가하고
+속성을 fruitList로 지정한다.
+
+fruitList.jsp가 실행되어
+다음과 같이 출력하도록 한다.
+
+과일 리스트
+사과
+배
+멜론
+수박
+
+
+http://localhost:8080/sample/fruitList
+
+
+
+
+
+
+
+
+
+
+
+
+
