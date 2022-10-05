@@ -1,4 +1,12 @@
-https://www.oracle.com/database/technologies/xe-prior-release-downloads.html  //다운로드 
+1.Oracle Database 11gR2 Express Edition for Windows x64 다운링크
+     https://www.oracle.com/database/technologies/xe-prior-release-downloads.html  
+
+
+
+2. 오라클 SID를 확인하는 방법  ----SELECT instance FROM v$thread;
+
+
+
 
 
 d드라이브에 oracleStudy 폴더 생성
