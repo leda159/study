@@ -21,5 +21,28 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- page 150 파일 업로드 처리 10.05 -->
+	
+	
+	<!-- defaultEncoding : 인코딩 방식 -->
+	<!-- maxUploadSize : 업로드시 최대 파일 크기:10M -->
+	<!-- maxUploadSizePerFile : 파일 한개당 업로드 최대크기:2M  -->
+	<!-- uploadTempDir : 업로드 파일 크기가 큰경우 임시 폴더 지정 -->
+	<!-- maxInMemorySize : 메모리에서 업로드 처리를 할 수있는 최대크기 -->
+	<beans:bean id="multipartResolver"
+				class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="utf-8"/>
+		<beans:property name="maxUploadSize" value="104857560"/>
+		<beans:property name="maxUploadSizePerFile" value="2097152"/>
+		<beans:property name="uploadTempDir" value="file:/c:/upload/tmp"/>
+		<beans:property name="maxInMemorySize" value="10485756"/>
+	</beans:bean>
+	
+	
+	
 	<context:component-scan base-package="org.bigdata.controller" />
+	
+	<!-- 예외처리 어노테이션 검색 10/05 -->
+	<context:component-scan base-package="org.bigdata.exception" />
+
 </beans:beans>
