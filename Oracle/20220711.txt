@@ -1,3 +1,6 @@
+https://www.oracle.com/database/technologies/xe-prior-release-downloads.html  //다운로드 
+
+
 d드라이브에 oracleStudy 폴더 생성
 \\192.168.200.17
 
