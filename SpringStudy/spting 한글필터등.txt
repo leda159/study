@@ -61,42 +61,16 @@ SQL>
 	<!-- 한글  필터 추가  종료 -->
 
 
-
-
-
-
-
-
-
-		<!-- spring-test 시작 -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-test</artifactId>
-		    <version>5.0.7.RELEASE</version>
-		    <!-- <scope>test</scope> -->
-		</dependency>
-		<!-- spring-test 종료 -->
-	
-		<!-- lombok시작 -->
-		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <version>1.18.12</version>
-		    <scope>provided</scope>
-		</dependency>
-		 <!-- lombok시작 -->  
-     
-     
-     
-     
-     
            		 mybatis 사용관련 jar 선언 - pom.xml
 			1. mybatis 검색
 			2. mybatis-spring 검색
 			3. spring-tx 검색
 			4. spring-jdbc 검색
-     
-     
+
+
+
+
+
 		<!-- mybatis관련 jar 설정 시작(4개) -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
@@ -119,19 +93,29 @@ SQL>
 		    <version>5.0.7.RELEASE</version>
 		</dependency>
 		<!-- mybatis관련 jar 설정 종료(4개) -->
-		
-		
-		
-		<!-- Connection pool 설정 시작 -->
+		<!-- spring-test 시작 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>5.0.7.RELEASE</version>
+		    <!-- <scope>test</scope> -->
+		</dependency>
+		<!-- spring-test 종료 -->
+		<!-- lombok시작 -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.12</version>
+		    <scope>provided</scope>
+		</dependency>
+		 <!-- lombok시작 -->  
+		<!-- HikariCP 설정 시작 -->
 		<dependency>
 		    <groupId>com.zaxxer</groupId>
 		    <artifactId>HikariCP</artifactId>
 		    <version>3.3.1</version>
 		</dependency>
-		<!-- Connection pool 설정 종료 -->	
-		
-		
-		
+		<!-- HikariCP 설정 종료 -->	
 		<!-- ojdbc8 설정 시작 -->
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>
@@ -139,8 +123,6 @@ SQL>
 		    <version>19.3.0.0</version>
 		</dependency>
 		<!-- ojdbc8 설정 종료 -->	
-
-
 		<!-- log4jdbc-log4j2 선언 시작 -->
 		<dependency>
 		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
@@ -148,19 +130,6 @@ SQL>
 		    <version>1.16</version>
 		</dependency>
 		<!-- log4jdbc-log4j2 선언 종료 -->
-
-
-
-		<!-- HikariCP시작 -->
-		<dependency>
-		    <groupId>com.zaxxer</groupId>
-		    <artifactId>HikariCP</artifactId>
-		    <version>3.3.1</version>
-		</dependency>
-		<!-- HikariCP종료 -->
-		
-		
-		
 		<!-- json 형태로 데이터 출력 시작 -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -168,9 +137,6 @@ SQL>
 		    <version>2.9.4</version>
 		</dependency>	
 		<!-- json 형태로 데이터 출력 종료 -->
-		
-		
-		
 		<!-- 파일업로드 시작 -->
 		<dependency>
 		    <groupId>commons-fileupload</groupId>
