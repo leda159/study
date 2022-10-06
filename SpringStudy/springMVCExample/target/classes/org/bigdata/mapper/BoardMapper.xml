@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <!-- 
+    
+    BoardMapper.java 인터페이스의 getList() 추상메서드가 
+    호출되면 select 태그가 실행된다 
+    
+    > 비교연산자를 태그로 인식하기 때문에 ![CDATA[ ]]를 사용해야 한다
+    
+    -->
+<mapper namespace="org.bigdata.mapper.BoardMapper">
+	<select id="getList" resultType="org.bigdata.domain.BoardVO">
+		<![CDATA[select * from tbl_board where bno > 0 order by bno desc]]>
+	</select>
+	
+	<!-- 신규 게시물 추가 처리 -->
+	<!-- seq_board.nextval : 게시물 다음 번호를 가져온다 -->
+	<!-- #{속성이름} 이렇게 선언하면 내부적으로 preparedStatement가 실행되어
+		 값을 대입한다.
+	 -->
+	<insert id="insert">
+		insert into tbl_board(bno,title,content,writer,regdate)
+		values(seq_board.nextval,#{title},#{content},#{writer},sysdate)
+	</insert>
+	
+	
+	
+	
+	
+	<!-- 신규 게시물 추가 처리 -->
+	<!-- order="BEFORE" : sql문이 실행되기전에 selectKey태그 안에 있는 문장이 먼저 실행된다-->
+	<!-- 게시물을 insert하기전에 지금 추가하려는 게시물 번호를 리턴 받을수 있다. -->
+	<insert id="insertSelectkey">
+		<!-- insert 하기전에 먼저 다음 게시물 번호를 가져온다 -->
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			select seq_board.nextval from dual
+		</selectKey>
+	
+		insert into tbl_board(bno,title,content,writer,regdate)
+		values(#{bno},#{title},#{content},#{writer},sysdate)		
+	</insert>
+	
+	
+	
+	<!-- 특정 게시물 상세보기 처리 -->
+	<select id="read" resultType="org.bigdata.domain.BoardVO">
+		select * from tbl_board where bno = #{bno}
+	</select>
+	
+	<delete id="delete">
+		delete from tbl_board where bno = #{bno}
+	</delete>
+</mapper>
+
+
+
+
