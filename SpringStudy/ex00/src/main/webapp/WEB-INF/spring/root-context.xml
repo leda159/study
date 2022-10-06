@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- page84 -->
+	<!-- Bean(빈) : 스프링 컨테이너에 의해 관리되는 자바 객체를 말함 -->
+	<!-- id: 식별자로 중복되면 안된다. -->
+	<!-- hikariCP를 사용하여 오라클 연결 선언 -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:bigdata" />
+		<property name="username" value="book_ex" />
+		<property name="password" value="book_ex" />
+	</bean>
+	
+	
+	
+	<!-- 데이터베이스 연결 설정 -->
+	<!-- HikariCP configuration 9.30 -->
+	<!-- destroy-method="close" : 데이터베이스 연결이 끝났을 경우 자동으로 Close를 시켜준다 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<!-- 매개변수가 있는 생성자를 호출하여 초기화 -->
+		<constructor-arg ref="hikariConfig" /> <!-- ref:참조한다 -->
+	</bean>
+	
+	
+	<!-- org.bigdata.sample에 있는 클래스에 선언된 어노테이션들을
+		검색하여 자동으로 처리 -->
+	<context:component-scan base-package="org.bigdata.sample" />	
+</beans>
