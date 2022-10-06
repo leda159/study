@@ -25,4 +25,7 @@ public interface BoardMapper {
 	
 	//특정 게시물 삭제
 	public int delete(Long bno);
+	
+	//특정 게시물 수정
+	public int update(BoardVO board);
 }
