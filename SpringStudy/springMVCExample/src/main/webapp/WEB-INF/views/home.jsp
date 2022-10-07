@@ -3,6 +3,9 @@
 <html>
 <head>
 	<title>Home</title>
+	<script>
+		location.href = "/board/list";
+	</script>
 </head>
 <body>
 <h1>
