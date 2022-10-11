@@ -1,0 +1,146 @@
+
+p196
+springMVCExample 프로젝트 사용
+src/main/java
+org.bigdata.mapper
+BoardMapper.java 인터페이스 수정
+BoardMapper.xml 수정
+
+
+src/test/java
+org.bigdata.mapper
+BoardMapperTests.java 수정
+
+
+
+p199
+src/main/java
+org.bigdata.service 패키지 생성
+BoardService.java 인터페이스 생성
+BoardServiceImpl.java 클래스 생성
+
+p202
+root-context.xml 수정
+context 클릭
+
+
+p203
+src/test/java
+org.bigdata.service 패키지 생성
+BoardServiceTests.java 클래스 생성
+ org.bigdata.service.BoardServiceImpl@117bcfdc
+
+p205
+BoardServiceImpl.java 수정
+register() 메서드 수정
+
+
+
+p205
+BoardServiceTests.java 수정
+INFO : org.bigdata.service.BoardServiceTests - 생성된 게시물 번호:7
+
+p206
+BoardServiceImpl.java 수정
+getList() 메서드 수정
+
+BoardServiceTests.java 수정
+
+p207
+BoardServiceImpl.java 수정
+get() 메서드 수정
+BoardServiceTests.java 수정
+
+p208
+BoardServiceImpl.java 수정
+modify() 메서드 수정
+remove() 메서드 수정
+
+p209
+BoardServiceTests.java 수정
+
+
+p211
+src/main/java
+org.bigdata.controller
+BoardController.java 생성
+
+p212 게시물 목록
+
+p213
+src/test/java
+org.bigdata.controller
+BoardControllerTests.java 코딩
+
+
+p216
+org.bigdata.controller
+BoardController.java 수정
+
+http://localhost:8080/board/boardList
+
+p216
+BoardControllerTests.java 코딩
+
+p218
+BoardController.java 수정
+BoardControllerTests.java 수정
+
+
+
+p219
+BoardController.java 수정
+
+p220
+BoardControllerTests.java 수정
+
+p220
+BoardController.java 수정
+
+p221
+BoardControllerTests.java 수정
+
+p223
+https://startbootstrap.com/
+
+SpringStudy > 수업자료
+startbootstrap-sb-admin-2-gh-pages.zip
+
+p225
+views 폴더밑에
+  board 폴더 생성
+  list.jsp 생성
+
+http://localhost:8080/board/list
+http://localhost:8080/board/list
+
+src
+  main
+    webapp
+      resources
+
+
+
+
+p231
+views 폴더밑에
+   includes 폴더 생성
+   header.jsp 생성
+   footer.jsp 생성
+board - list.jsp 복사
+
+p237 list.jsp 수정 - 데이터베이스 연동
+
+resources
+   dist
+     css
+        sb-admin-2.css 20라인
+
+
+
+
+
+
+
+
+

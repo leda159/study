@@ -1,0 +1,196 @@
+
+http://localhost:8080/board/list
+
+views > home.jsp 수정
+
+
+
+
+
+p239
+BoardController.java 수정 - 게시판등록
+register.jsp 코딩 - 게시판등록
+
+게시판 등록 화면 url
+http://localhost:8080/board/register
+
+
+
+p246 list.jsp 수정
+
+모달창
+modal-dialog
+ modal-content
+  modal-header - 제목 설정 부분
+  modal-body  - 모달창 내용
+  modal-footer - 버튼처리
+
+p248 모달창 보여주기
+list.jsp 수정
+
+
+
+p250 게시글 등록 버튼 생성
+list.jsp 수정
+
+p251 특정 게시물 상세보기 화면 구현
+register.jsp 그대로 복사 get.jsp 생성
+get.jsp 수정
+
+http://localhost:8080/board/get?bno=XX
+
+
+
+
+p254
+get.jsp 수정 - 버튼 처리
+
+p254
+list.jsp 수정 - 리스트화면에서 제목을 클릭시
+               상세보기 화면으로 이동
+
+
+
+p257
+게시물 등록처리 -> 게시물목록으로 이동후
+뒤로가기 클릭시 동일한 내역 등록되는거 방지
+
+list.jsp 수정
+
+
+p259
+게시물 상세보기 화면의 수정버튼 처리
+BoardController.java 수정
+
+p260
+views > board 폴더에 modify.jsp 생성
+get.jsp를 복사 수정
+
+
+
+
+
+p262
+modify.jsp 화면에서 버튼 처리 수정
+
+p264
+get.jsp 수정
+
+p266
+modify.jsp 수정
+
+select * from tbl_board order by bno desc;
+
+힌트(Hint)?
+Optimizer에게 개발자가 sql문을 실행하라고 지시
+
+select /*+ INDEX_DESC(tbl_board pk_board) */
+       *
+  from tbl_board
+ where bno > 0;
+
+인라인 뷰(inline view)
+
+select *
+  from emp
+ where sal > (select max(sal)
+                from emp
+               where dept_no = 10);
+
+
+p293 게시판 페이징 처리
+src/main/java
+org.bigdata.domain
+Criteria.java 클래스 생성
+
+
+p293
+src/main/java
+org.bigdata.mapper
+BoardMapper.java 인터페이스 수정
+
+p294
+BoardMapper.xml 수정
+
+insert into tbl_board
+  select seq_board.nextval,
+         title,content,writer,sysdate,null
+    from tbl_board; 
+    
+commit;
+
+src/test/java
+org.bigdata.mapper
+BoardMapperTests.java 수정
+
+select * from tbl_board
+        order by bno desc;
+
+
+
+
+
+
+
+
+
+
+
+
+p299
+BoardService.java 인터페이스 수정
+BoardServiceImple.java 클래스 수정
+
+
+
+p300
+src/test/java
+org.bigdata.service
+BoardServiceTests.java 수정
+
+
+p300
+BoardController.java 수정
+
+p301
+src/test/java
+org.bigdata.controller
+BoardControllerTest.java 수정
+
+
+
+
+
+
+
+	select bno,title,content,writer,regdate,updatedate
+			  from (select /*+ INDEX_DESC(tbl_board pk_board) */
+			               rownum rn,bno,title,content,writer,regdate,updatedate
+			          from tbl_board
+			         where rownum <= #{pageNum} * #{amount})
+			 where rn > (#{pageNum} -1) * #{amount}  
+p306
+src/main/java
+org.bigdata.domain
+PageDTO.java 클래스 생성
+
+p307
+BoardController.java 수정
+
+
+
+
+p308 list.jsp 수정
+
+p310 list.jsp 수정
+http://localhost:8080/board/2
+
+p311 list.jsp
+
+p312 list.jsp - 하단 페이지 번호 클릭시 오류 처리
+
+
+
+
+
+
