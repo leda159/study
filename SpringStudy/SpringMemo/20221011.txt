@@ -7,3 +7,209 @@
 10.19(수) 제품 소프트웨어 패키징
 
 10.21(금) 애플리케이션 배포
+p316
+BoardController.java 수정
+
+p317  get.jsp 수정
+
+http://localhost:8080/board/get?pageNum=3&amount=10&bno=33
+http://localhost:8080/board/modify?bno=33&pageNum=3&amount=10
+
+p319 modify.jsp 수정
+     BoardController.java 수정
+
+
+p321 modify.jsp 수정
+     수정페이지에서 목록 클릭시 작업페이지로
+     이동 처리
+
+http://localhost:8080/board/list?pageNum=5&amount=10
+
+
+
+p322 BoardMapper.java 인터페이스 수정
+p322 BoardMapper.xml 수정
+
+p323
+BoardService.java 인터페이스 수정
+BoardServiceImpl.java 클래스 수정
+ 
+p324
+BoardController.java 수정
+
+
+
+
+
+p334 게시판에 검색조건 추가
+Criteria.java 클래스 수정
+
+
+p335
+BoardMapper.xml 수정
+
+만약 제목으로 주문 검색
+select *
+  from tbl_board
+where title like '%주문%';
+
+제목+내용 주문 검색
+
+select *
+  from tbl_board
+where title like '%주문%' or
+      content like '%주문%';
+
+제목+내용+작성자 주문 검색
+
+select *
+  from tbl_board
+where title like '%주문%' or
+      content like '%주문%'or
+      writer like '%주문%';
+
+p336 
+src/test/java
+org.bigdata.mapper
+BoardMapperTests.java 수정
+select bno,title,content,writer,regdate,updatedate from 
+(select /*+ INDEX_DESC(tbl_board pk_board) 
+*/ rownum rn,bno,title,content,writer,regdate,
+updatedate from tbl_board
+ where ( 
+title like '%'||'모달'||'%' OR 
+content like '%'||'모달'||'%' ) AND rownum <= 1 * 10) where rn > (1 -1) * 10 
+
+p340 list.jsp - 검색조건,검색문자열 추가
+
+
+p342 list.jsp - 유효성 검사 추가
+
+p343 list.jsp - 검색조건,검색문자열 그대로 표시하기
+
+p344 list.jsp 
+     - 페이지 번호 클릭시 검색조건,검색문자열 함께
+       이동처리
+http://localhost:8080/board/list?pageNum=3&amount=10&type=TC&keyword=%ED%85%8C%EC%8A%A4%ED%8A%B8
+
+p345 get.jsp 수정
+
+p346 modify.jsp 수정
+     BoardController.java 클래스 수정
+
+p347 modify.jsp 수정
+
+p349
+Criteria.java 수정
+
+
+
+
+p350 BoardControll.java 수정
+
+http://localhost:8080/board/list?pageNum=2&amount=10&type=T&keyword=%EC%8A%A4%ED%94%84%EB%A7%81
+
+
+p354 
+프로젝트명:restExample
+top level package:org.bigdata.controller
+-한글필터 처리
+-pom.xml 수정
+- /를 초기url로 지정
+
+http://localhost:8080/
+
+
+
+p357 json 관련 jar 추가
+
+jackson-databind 검색
+jackson-dataformat 검색
+gson 검색
+
+p358-359
+src/java/main
+org.bigdata.controller
+SampleController.java 클래스 생성
+
+http://localhost:8080/sample/getText
+
+p360
+src/main/java
+org.bigdata.domain 패키지 생성
+SampleVO.java 클래스 생성
+
+p361
+SampleController.java 수정
+
+http://localhost:8080/sample/getSample.json
+
+
+p363 SampleController.java 수정
+
+
+스트림(stream)?
+-자바 8버전 부터 가능하게 됨
+-Collection에 저장되어 있는 element를
+ 순회하면서 처리할 수 있는 코드 패턴을 말하며
+ 람다식과 함께 Collection에 있는 데이터 처리를
+ 매우 간결하게 처리가능하다.
+
+-스트림 선언 + 
+ Filter 혹은 Sort +
+ 최종연산(Count,Sum등)
+
+http://localhost:8080/sample/getList.json
+
+p364 SampleController.java 수정
+     - Map 구조
+
+
+http://localhost:8080/sample/getMap
+http://localhost:8080/sample/getMap.json
+
+p365 SampleController.java 수정
+
+http://localhost:8080/sample/check?sno=xx&page=2
+
+http://localhost:8080/sample/check?height=170&weight=80
+
+p366 SampleController.java 수정
+http://localhost:8080/sample/product/notebook/P1234
+
+http://localhost:8080/sample/product/notebook/P1234.json
+["category: notebook","productId: P1234"]
+
+
+
+p368
+org.bigdata.domain
+Ticket.java 클래스 생성
+
+SampleController.java 수정
+
+p369
+src/test/java
+org.bigdata.controller
+SampleControllerTests.java 생성
+
+{"tno":123,"owner":"admin","grade":"AAA"}
+
+Rest 방식 테스트 API 프로그램 설치
+
+https://chrome.google.com/webstore
+
+talend 검색
+전송방식:POST
+url : http://localhost:8080/sample/ticket
+
+body
+{"tno":123,"owner":"admin","grade":"AAA"}
+
+
+
+
+
+
+
+
