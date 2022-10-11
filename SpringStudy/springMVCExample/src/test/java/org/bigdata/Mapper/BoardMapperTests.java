@@ -1,6 +1,9 @@
 package org.bigdata.Mapper;
 
+import java.util.List;
+
 import org.bigdata.domain.BoardVO;
+import org.bigdata.domain.Criteria;
 import org.bigdata.mapper.BoardMapper;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -63,7 +66,7 @@ public class BoardMapperTests {
 		log.info("DELETE COUNT"+ mapper.delete(3L));
 	}
 	
-	@Test
+	@Ignore
 	public void testUpdate() {
 		
 		BoardVO board = new BoardVO();
@@ -75,6 +78,32 @@ public class BoardMapperTests {
 		
 		int count = mapper.update(board);
 		log.info("update count:" + count);
+	}
+	
+	@Ignore
+	public void testPaging() {
+		Criteria cri = new Criteria(); //인스턴스 생성
+		
+		//10개씩 3페이지
+		cri.setPageNum(3);
+		cri.setAmount(10);
+		
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		
+		list.forEach(board -> log.info(board));
+	}
+	
+	
+	//검색처리 테스트 page334
+	@Test
+	public void testSearch() {
+		
+		Criteria cri = new Criteria();
+		cri.setKeyword("제목");
+		cri.setType("TC");//제목+내용으로 검색
+		
+		List<BoardVO> list = mapper.getListWithPaging(cri);
+		list.forEach(board -> log.info(board));
 	}
 }
 

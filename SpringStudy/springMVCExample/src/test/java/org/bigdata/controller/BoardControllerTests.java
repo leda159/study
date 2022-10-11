@@ -59,77 +59,78 @@ public class BoardControllerTests {
 	
 	//신규 게시물 등록 처리
 	@Ignore
-	public void testRegister() throws Exception {
+	public void testRegister() throws Exception{
 		
-		String resultPage = mockMvc.perform(
-			MockMvcRequestBuilders.post("/board/register")
-					             .param("title","테스트 새글 제목")
-					             .param("content","테스트 새글 내용")
-					             .param("writer","이순신"))
-				                 .andReturn()
-				                 .getModelAndView()
-				                 .getViewName();
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders
+				.post("/board/register")
+				.param("title","테스트 새글 제목")
+				.param("content","테스트 새글 내용")
+				.param("writer","user00"))
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+		log.info(resultPage);
+	
+	}
+
+	
+	@Ignore
+	public void testGet() throws Exception {
+		
+		log.info(mockMvc
+				.perform(MockMvcRequestBuilders
+				.get("/board/get")
+				.param("bno","8"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
+	
+	//신규 게시물 수정 처리
+	@Ignore
+	public void testModify() throws Exception{
+		
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/board/modify")
+				.param("bno","6")
+				.param("title","수정된 테스트 새글 제목")
+				.param("content","수정된 테스트 새글 내용")
+				.param("writer","user00"))
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
 		
 		log.info(resultPage);
 				
 	}
 	
-	@Ignore
-	public void testGet() throws Exception {
+	//신규 게시물 삭제 처리
+	@Test
+	public void testRemove() throws Exception{
 		
-		log.info(mockMvc.perform(
-					MockMvcRequestBuilders.get("/board/get")
-										  .param("bno","8"))
-										  .andReturn()
-										  .getModelAndView()
-										  .getModelMap());
-	}
-	
-	
-	@Ignore
-	public void testModify() throws Exception {
+		String resultPage = mockMvc
+				.perform(MockMvcRequestBuilders.post("/board/remove")
+				.param("bno","6"))
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+				
 		
-		String resultPage = mockMvc.perform(
-								MockMvcRequestBuilders.post("/board/modify")
-													  .param("bno","8")
-													  .param("title","8번 게시물 제목 수정")
-													  .param("content","8번 게시물 내용 수정")
-													  .param("writer","신사임당"))
-								   					  .andReturn()
-								   					  .getModelAndView()
-								   					  .getViewName();
-		log.info("resultPage:" + resultPage);
-		
-	}
-	
-	@Ignore
-	public void testRemove() throws Exception {
-		
-		String resultPage = mockMvc.perform(
-								MockMvcRequestBuilders.post("/board/remove")
-													  .param("bno","8"))
-								   					  .andReturn()
-								   					  .getModelAndView()
-								   					  .getViewName();
-		log.info("resultPage:" + resultPage);
-		
+		log.info(resultPage);
+				
 	}
 	
 	@Test
-	public void testListPaging() throws Exception {
+	public void testListPaging() throws Exception{
 		log.info(mockMvc.perform(
 				MockMvcRequestBuilders.get("/board/list")
-					.param("pageNum","2")
-					.param("amount","10"))
-					.andReturn()
-					.getModelAndView()
-					.getModelMap());
+				.param("pageNum","2")
+				.param("amount","10"))
+				.andReturn().getModelAndView().getModelMap());
+		
 	}
-	
 }
-
-
-
 
 
 
