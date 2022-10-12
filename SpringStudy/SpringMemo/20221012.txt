@@ -1,0 +1,288 @@
+
+springMVCExample 프로젝트 사용
+
+p377 댓글 테이블 생성
+
+create table tbl_reply(
+   rno number(10,0),
+   bno number(10,0) not null,
+   reply varchar2(1000) not null,
+   replyer varchar2(50) not null,	
+   replyDate date default sysdate,
+   updateDate date
+);
+
+create sequence seq_reply;
+
+alter table tbl_reply add constraint 
+      pk_reply primary key(rno);
+
+alter table tbl_reply add constraint fk_reply_board foreign key (bno)
+      references tbl_board(bno);
+
+
+foreign key 사용
+댓글이 존재하는 게시물 삭제시 오류발생시키도록
+사용
+
+
+
+
+p378
+src/main/java
+org.bigdata.domain
+ReplyVO.java 클래스 생성
+
+p378-379
+org.bigdata.mapper
+ReplyMapper.java 인터페이스 생성
+
+
+p379
+src/main/resources
+org
+ bigdata
+    mapper
+        ReplyMapper.xml 파일 생성
+
+p380
+src/test/java
+org.bigdata.mapper
+ReplyMapperTests.java 코딩
+        
+org.apache.ibatis.binding.MapperProxy@21c7208d
+
+
+p382
+ReplyMapper.java 인터페이스 수정
+ReplyMapper.xml 수정
+
+p383
+ReplyMapperTests.java 수정
+
+p384
+ReplyMapper.java 인터페이스 수정
+ReplyMapper.xml 수정
+
+p385
+ReplyMapperTests.java 수정
+5   |9   |댓글테스트 4 |replyer4 |2022-10-12 10:29:13.0 |[null]     |
+
+p385
+ReplyMapper.java 인터페이스 수정
+
+p386
+ReplyMapper.xml 수정
+ReplyMapperTests.java 수정
+
+p386
+ReplyMapper.java 인터페이스 수정
+ReplyMapper.xml 수정
+
+p387
+ReplyMapperTests.java 수정
+
+
+
+
+
+p387
+ReplyMapper.java 수정
+
+url에 전달되는 매개변수값 가져오기
+1. @RequestParam
+2. @PathVariable
+3. @Param
+
+
+p388
+ReplyMapper.xml 수정
+ReplyMapperTests.java 수정
+rno |bno |reply    |replyer   |replydate             |updatedate |
+|----|----|---------|----------|----------------------|-----------|
+|6   |2   |댓글테스트 5  |replyer5  |2022-10-12 10:29:13.0 |[null]     |
+|11  |2   |댓글테스트 10 |replyer10 |2022-10-12 10:29:13.0 |[null]     |
+
+
+p389-390
+src/main/java
+org.bigdata.service
+ReplyService.java 인터페이스 생성
+ReplyServiceImpl.java 클래스 생성
+
+p393
+src/main/java
+org.bigdata.controller
+ReplyController.java 생성
+
+p393 ReplyController.java 수정
+
+http://localhost:8080/board/list
+
+
+
+p395
+talend API 댓글 등록 테스트
+전송방식:POST
+http://localhost:8080/replies/new
+body
+
+{"bno":2,
+ "reply":"댓글 테스트10.12",
+ "replyer":"hong"}
+
+
+select *
+  from tbl_reply
+ where bno = 2;
+
+p395 특정 게시물 댓글 목록 
+ReplyController.java 수정
+
+pom.xml 수정
+
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+    <version>2.9.6</version>
+</dependency>
+<!-- 자바 클래스를 JSON 타입의 문자열로 변환 -->
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.8.2</version>
+</dependency>		
+
+http://localhost:8080/replies/pages/2/1
+http://localhost:8080/replies/pages/2/1.json
+
+
+ReplyVO.java 수정
+
+
+p397
+ReplyController.java 수정
+전송방식:PUT
+url : http://localhost:8080/replies/12
+body
+
+{"bno":2,
+ "reply":"스프링테스트",
+ "replyer":"hong"}
+
+
+전송방식:DELETE
+url : http://localhost:8080/replies/12
+
+
+
+
+
+
+
+
+p399 js 폴더에 reply.js 파일 생성
+javaScript 검색
+
+
+
+p400 get.jsp 수정
+
+
+자바스크립트 객체 생성 방법
+1.object() 객체 생성자 함수 사용
+  
+  var person = new Object();
+
+  person.name = "홍길동";
+  person.age = 27;
+  person.info = function(){
+     console.log(this.name + "안녕하세요!");	
+  }
+
+2.객체 리터럴 방식
+  var person = {
+     name:"홍길동",
+     age:27,
+     info:function(){
+	console.log(this.name + "안녕하세요!");
+     }
+	
+  }
+
+3. 생성자 함수 사용하여 객체 선언
+
+function Person(name,age){
+  this.name = name;
+  this.age = age;
+  this.info = function(){
+     console.log(this.name + "안녕하세요!");
+  }
+}
+
+
+
+var person1 = new Person("홍길동",27);
+var person2 = new Person("이순신",35);
+var person3 = new Person("강감찬",53);
+
+p403 reply.js 수정
+Ajax
+-Asynchronous JavaScript And Xml
+-비동기 통신 방식(서버의 응답처리를 기다리지 않고 
+ 다른 task를 진행)
+-서버와 통신하기 위해 XMLHttpRequest 객체사용
+-Json,xml,html등 다양한 형태로 주고 받을수 있다.
+-화면 전체를 refresh하지 않고 부분적으로 화면 데이터
+ 갱신 가능 
+
+p404
+get.jsp 수정
+
+
+
+
+
+
+p406
+reply.js 수정
+{rno: 13, bno: 51, reply: '자바스크립트이용 댓글처리', replyer: '홍길동', replyDate: '2022-10-12 15:21:37', …}
+bno
+: 
+51
+reply
+: 
+"자바스크립트이용 댓글처리"
+replyDate
+: 
+"2022-10-12 15:21:37"
+replyer
+: 
+"홍길동"
+rno
+: 
+13
+updateDate
+: 
+null
+[[Prototype]]
+: 
+Object
+
+
+
+p408
+reply.js 수정
+
+p409
+get.jsp 수정
+
+p410 reply.js 수정
+
+p412 reply.js 수정
+
+
+
+
+
+
