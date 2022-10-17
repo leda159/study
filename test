@@ -3,3 +3,4 @@ git status // 변경 사항 확인
 .git ignore //제한 파일
 git add 파일이름  //파일 하나담기
 git add. //모든 파일담기
+git commit //버전변경
