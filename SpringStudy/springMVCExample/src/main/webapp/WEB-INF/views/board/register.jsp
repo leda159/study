@@ -24,7 +24,9 @@
 					게시판 등록
 				</div>
 				<div class="panel-body">
-					<form role="form" action="/board/register"method="post">
+					<form role="form" 
+						  action="/board/register"
+						  method="post">
 						<div class="form-group">
 							<label>제목</label>
 							<input class="form-control" name="title">
@@ -37,8 +39,12 @@
 							<label>작성자</label>
 							<input class="form-control" name="writer">
 						</div>
-						<button type="submit" class="btn btn-primary">등록</button>
-						<button type="reset" class="btn btn-danger">취소</button>
+						<button type="submit" class="btn btn-primary">
+							등록
+						</button>
+						<button type="reset" class="btn btn-danger">
+							취소
+						</button>
 					</form>
 				</div>
 			</div>

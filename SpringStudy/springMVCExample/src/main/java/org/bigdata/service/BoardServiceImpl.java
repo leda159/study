@@ -5,52 +5,50 @@ import java.util.List;
 import org.bigdata.domain.BoardVO;
 import org.bigdata.domain.Criteria;
 import org.bigdata.mapper.BoardMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-@Service //해당 클레스가 service 역할을 한다는선언
-@AllArgsConstructor //모든 매개변수를 가지는 생성자를 생성
-public class BoardServiceImpl implements BoardService {
-	
-	//스프링 프레임워크 4.3부터는 생략 가능
+@Service //해당 클래스가 serivice 역할을 한다는 선언
+@AllArgsConstructor //모든 매개변수를 가지는 생성자를 생성  
+public class BoardServiceImpl implements BoardService{
+	//스프링 프레임워크 4.3이상부터는 생략 가능
 	//@Setter(onMethod_ = @Autowired)
-	private BoardMapper mapper;
-	
-	
+	private BoardMapper mapper;	
 	
 	@Override
 	public void register(BoardVO board) {
 		
-		log.info("register...." + board);
-		mapper.insertSelectkey(board);
+		log.info("register 메서드 실행" + board);
 		
+		mapper.insertSelectKey(board);
 	}
 
-	//특정 게시물 내역 가져오기
+	//특정 게시물 내역 리턴
 	@Override
 	public BoardVO get(Long bno) {
+		log.info("get() 메서드 실행");
 		
-		log.info("get....." + bno);
 		return mapper.read(bno);
 	}
 
-	//특정 게시물 수정하기
+	//특정 게시물 수정처리
 	@Override
 	public boolean modify(BoardVO board) {
+		log.info("modify() 메서드 실행");
 		
-		log.info("modify....." +board);
-		return mapper.update(board) == 1; 
-		//수정이 제대로 되었으면 1이 리턴되므로 true여서 메서드가 작동함
+		return mapper.update(board) == 1;
 	}
 
-	//특정 게시물 삭제하기
+	//특정 게시물 삭제 처리
 	@Override
 	public boolean remove(Long bno) {
+		log.info("modify() 메서드 실행");
 		
-		log.info("remove...."+bno);
 		return mapper.delete(bno) == 1;
 	}
 
@@ -58,19 +56,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> getList(Criteria cri) {
 		
-		log.info("getList with criteria:"+cri);
+		log.info("Criteria:" + cri);
+		
 		return mapper.getListWithPaging(cri);
 	}
 
-	//게시판 전체 행수
+	//게시물 전체 행수 리턴
 	@Override
 	public int getTotal(Criteria cri) {
-		
-		log.info("get total count");
 		return mapper.getTotalCount(cri);
 	}
 
-
-
-	
 }

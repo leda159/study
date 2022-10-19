@@ -14,8 +14,15 @@ public class ReplyVO {
 	private String reply;//댓글내용
 	private String replyer;//댓글작성자
 	
-	//json형태의 데이터를 () 안에 있는 형태로 보여준다
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="Asia/Seoul")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",
+			    timezone="Asia/Seoul")
 	private Date replyDate;//등록일자
+	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",
+		    timezone="Asia/Seoul")
 	private Date updateDate;//수정일자
 }
+
+
+
+

@@ -19,13 +19,9 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class ReplyMapperTests {
-	
-	
-	//약식으로 배열 초기값 선언
-	//int [] a = new int[]{80L,34L,35L,36L,37L}; -> 정규식
-	private Long[] bnoArr = {80L,34L,35L,36L,37L};
 
-	
+	//게시물 번호 배열
+	private Long[] bnoArr = {2L,3L,4L,5L,9L};
 	
 	@Setter(onMethod_ = @Autowired)
 	private ReplyMapper mapper;	
@@ -38,34 +34,38 @@ public class ReplyMapperTests {
 	@Ignore
 	public void testCreate() {
 		
-		//i에 1~9까지 대입
-		IntStream.rangeClosed(1, 10).forEach(i ->{
-			ReplyVO vo = new ReplyVO();//인스턴스 생성
-			
-			//게시물의 번호
-			vo.setBno(bnoArr[i % 5]); //i=1 이면 나머지 1
-			vo.setReply("댓글 테스트" + i);
-			vo.setReplyer("replyer" + i);
-			
-			mapper.insert(vo); //ReplyMapper.xml 으로 이동
-		});
+		IntStream.rangeClosed(1,10)
+				 .forEach(i -> {
+					 ReplyVO vo = new ReplyVO();
+					 
+					 vo.setBno(bnoArr[i % 5]);
+					 vo.setReply("댓글테스트 " +i);
+					 vo.setReplyer("replyer" + i);
+					 
+					 mapper.insert(vo);
+				 });
 	}
+	
 	
 	@Ignore
 	public void testRead() {
+		
 		Long targetRno = 5L;
 		
 		ReplyVO vo = mapper.read(targetRno);
 		
 		log.info(vo);
+		
 	}
 	
+	//특정 댓글 삭제 
 	@Ignore
 	public void testDelete() {
 		
 		Long targetRno = 5L;
 		
 		mapper.delete(targetRno);
+		
 	}
 	
 	@Ignore
@@ -73,29 +73,43 @@ public class ReplyMapperTests {
 		
 		Long targetRno = 7L;
 		
-		//댓글 내역 존재 체크
-		ReplyVO vo = mapper.read(targetRno); // 댓글내역을 가져와서 vo에 담는다
+		//댓글내역 존재 체크
+		ReplyVO vo = mapper.read(targetRno);
 		
-		vo.setReply("업데이트 수정"); //댓글내용을 "" 로 바꾼다
+		vo.setReply("수정 댓글");
 		
-		int count = mapper.update(vo); //mapper의update메서드에 매개변수로 vo로 보낸다
+		int count = mapper.update(vo);
 		
-		log.info("업데이트 수정" + count); 
+		log.info("수정 건수:" + count);
+		
 	}
 	
-	@Test
+	@Ignore
 	public void testList() {
 		
 		Criteria cri = new Criteria();
-		//특정 게시물에 대한 댓글을 가져와서
-		List<ReplyVO> replies = mapper.getListWithPaging(cri, bnoArr[0]);
-		//댓글 내역을 콘솔창에 출력
+		//특정 게시물에 대한 댓글을 리턴
+		List<ReplyVO> replies = mapper.getListWithPaging(cri,bnoArr[0]);
+		
+		//댓글내역을 콘솔창에 출력
 		replies.forEach(reply -> log.info(reply));
+		
 	}
+	
+	
+	//p431
+	@Test
+	public void testList2() {
+		
+		Criteria cri = new Criteria(1,10);
+		
+		List<ReplyVO> replies = mapper.getListWithPaging(cri,3L);
+		
+		replies.forEach(reply -> log.info(reply));
+		
+	}
+	
 }
-
-
-
 
 
 
