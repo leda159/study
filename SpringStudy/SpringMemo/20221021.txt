@@ -1,0 +1,36 @@
+p575 get.jsp 수정
+
+p578 게시물 삭제시 첨부파일도 같이 삭제 처리
+
+p578
+org.bigdata.mapper
+BoardAttachMapper.java 수정
+
+p579
+BoardAttachMapper.xml 수정
+
+p579
+BoardServiceImpl.java 수정
+
+p581-582
+BoardController.java 수정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,162 @@
+
+p478
+1.Propagation(전파)
+- 트랜잭션 실행 범위 지정
+
+2.Isolation(격리)
+- 트랜잭션에서 일관성 없는 데이터를 허용하도록
+  하는 수준을 선언
+
+3.Rollback-for 예외종류
+- 지정한 예외발생시 rollback 처리
+
+4.No-Rollack-for 예외종류
+- 지정한 예외발생시 rollback 미처리
+
+@Transactional(
+propagation=Propagation.속성,
+rollbackFor={예외이름1,예외이름2....},
+isolation=Isolation.속성)
+
+@Transactional(
+propagation=Propagation.REQUIRED,
+rollbackFor={ArithmeticException.class,
+             NumberFormatException.class},
+isolation=Isolation.SERIALIZABLE)
+
+p480
+댓글수 처리를 위해 tbl_board 테이블에
+컬럼 추가
+
+alter table tbl_board add(replycnt number default 0);
+                
+update tbl_board
+   set replycnt = (select count(rno)
+                     from tbl_reply
+                    where tbl_reply.bno = tbl_board.bno);
+commit;
+
+select bno,replycnt
+  from tbl_board
+order by bno desc; 
+
+
+
+
+
+
+p481 BoardVO.java 수정
+     BoardMapper.java 인터페이스 수정
+p483 BoardMapper.xml 수정
+
+p484-485
+ReplyServiceImpl.java 수정
+
+
+
+p486 list.jsp 수정
+댓글수 표시
+
+p490 파일업로드 처리관련 선언
+
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>javax.servlet-api</artifactId>
+	<version>3.1.0</version>
+	<scope>provided</scope>
+</dependency>
+
+
+D:\SpringStudy\수업자료
+Web상단선언.txt 내용을 복사
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+
+p491 web.xml 수정
+<multipart-config>
+	<location>c:\\upload\\tmp</location>
+	<max-file-size>20971520</max-file-size>
+	<max-request-size>41943040</max-request-size>
+	<file-size-threshold>20971520</file-size-threshold>
+</multipart-config>
+
+
+p492 servlet-context.xml 수정
+<beans:bean id="multipartResolver" 
+	    class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+</beans:bean>
+
+
+
+p494 파일업로드 폼 작성
+src/main/java
+org.bigdata.controller
+UploadController.java 생성
+
+
+p495
+views 폴더에 uploadForm.jsp 생성
+
+p497 UploadController.java 수정
+파일 업로드시 처리
+
+views 폴더에 uploadFormAction.jsp
+<h2>정상적으로 업로드 처리되었습니다.</h2>
+
+파일업로드 화면 url
+http://localhost:8080/uploadForm
+NFO : org.bigdata.controller.UploadController - -------------------------------
+INFO : org.bigdata.controller.UploadController - 업로드 원본 파일명:B1451145389_l.jpg
+INFO : org.bigdata.controller.UploadController - 업로드 파일 크기:36827
+INFO : org.bigdata.controller.UploadController - -------------------------------
+INFO : org.bigdata.controller.UploadController - 업로드 원본 파일명:B3642730745_l.jpg
+INFO : org.bigdata.controller.UploadController - 업로드 파일 크기:51971
+INFO : org.bigdata.controller.UploadController - -------------------------------
+INFO : org.bigdata.controller.UploadController - 업로드 원본 파일명:B4172751734_l.jpg
+INFO : org.bigdata.controller.UploadController - 업로드 파일 크기:46220
+INFO : org.bigdata.controller.UploadController - -------------------------------
+INFO : org.bigdata.controller.UploadController - 업로드 원본 파일명:B9177037040_l.jpg
+INFO : org.bigdata.controller.UploadController - 업로드 파일 크기:37346
+
+p499 UploadController.java 수정
+c폴더 upload 폴더에 파일 업로드 처리
+
+p500 UploadController.java 수정
+Ajax 방식으로 업로드 처리
+
+p501
+views 폴더에 uploadAjax.jsp 생성
+
+Ajax 기법으로 업로드 처리 url
+http://localhost:8080/uploadAjax
+FileList
+0
+: 
+File {name: 'B1451145389_l.jpg', lastModified: 1662535710764, lastModifiedDate: Wed Sep 07 2022 16:28:30 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 36827, …}
+1
+: 
+File {name: 'B3642730745_l.jpg', lastModified: 1662535680382, lastModifiedDate: Wed Sep 07 2022 16:28:00 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 51971, …}
+2
+: 
+File {name: 'B4172751734_l.jpg', lastModified: 1662535011110, lastModifiedDate: Wed Sep 07 2022 16:16:51 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 46220, …}
+3
+: 
+File {name: 'B9177037040_l.jpg', lastModified: 1662535688815, lastModifiedDate: Wed Sep 07 2022 16:28:08 GMT+0900 (한국 표준시), webkitRelativePath: '', size: 37346, …}
+length
+: 
+4
+
+
+p503 uploadAjax.jsp 수정
+
+p504 UploadController.java 수정
+
+
+
+
+
+
+
+

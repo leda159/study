@@ -1,0 +1,320 @@
+
+
+p581 BoardController.java
+
+p583 게시물 수정처리
+modify.jsp 수정
+
+p584 modify.jsp -jquery 추가
+
+p586 modify.jsp 
+- 파일선택 버튼 추가
+- 원형 삭제버튼 추가
+
+p588 첨부파일 삭제버튼 클릭 처리
+modify.jsp 수정
+
+
+p589
+register.jsp 의 정규식 소스를 
+modify.jsp로 복사
+
+p590 modify.jsp 게시물 수정 처리 수정
+register.jsp 부분을 복사
+
+p591
+BoardServiceImple.java 수정
+게시물수정 처리부분 수정
+
+
+
+
+p595
+Quartz 라이브러리 pom.xml 추가
+
+quartz 검색
+quartz-jobs 검색
+<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz</artifactId>
+    <version>2.3.0</version>
+</dependency>
+<dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz-jobs</artifactId>
+    <version>2.3.0</version>
+</dependency>
+
+
+
+
+
+p596
+root-context.xml 수정
+task 체크
+
+p598
+src/main/java
+org.bigdata.task 패키지 생성
+FileCheckTask.java 클래스 생성
+
+D:\SpringStudy\수업자료
+CRON 표현식.hwp 복사
+
+p598
+root-context.xml 수정
+- org.bigdata.task 인식하도록 선언
+
+WARN : org.bigdata.task.FileCheckTask - 2022년 10월 24일 11시 02분 00초
+WARN : org.bigdata.task.FileCheckTask - File Check Task Run...
+WARN : org.bigdata.task.FileCheckTask - ==========================
+WARN : org.bigdata.task.FileCheckTask - 2022년 10월 24일 11시 03분 00초
+WARN : org.bigdata.task.FileCheckTask - File Check Task Run...
+WARN : org.bigdata.task.FileCheckTask - ==========================
+
+매일 오후 2시 5분 10초에 스케줄링
+@Scheduled(cron="10 5 14 * * *")
+
+
+p600
+org.bigdata.mapper
+BoardAttachMapper.java 인터페이스 수정
+
+p600
+BoardAttachMapper.xml 수정
+
+p601-602
+org.bigdata.task
+FileCheckTask.java 클래스 수정
+
+
+select * 
+  from tbl_attach 
+ where uploadpath = '2022\10\24';
+
+
+
+
+p606 Spring Web Security
+
+1.인증(Authentication)
+  : 보호된 자원에 접근한 대상에 대해 애플리케이션을
+    수행해도 되는 주체인지 확인하는 과정
+
+2.인가(Authorize,권한부여)
+  : 해당 자원에 대해 접근 권한을 가지고 있는지 확인
+    하는 과정
+
+
+              필터(Filter)     인터셉터(Interceptor)
+1.호출되는 시점 DispatcherServle  DispatcherServle
+             이 동작전           동작 후
+2.설정파일     web.xml          servlet-context.xml
+3.구현방식     web.xml 선언      설정 + 메서드 생성
+4.용도        전역에 영향을 주는   인증,권한처리
+             한글처리
+
+
+p608 보안처리 관련 jar pom.xml 수정
+spring-security-web
+spring-security-config
+spring-security-core
+spring-security-taglibs
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-web</artifactId>
+    <version>5.0.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-config</artifactId>
+    <version>5.0.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>5.0.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-taglibs</artifactId>
+    <version>5.0.7.RELEASE</version>
+</dependency>
+
+p608 
+security-context.xml 파일 생성
+/WEB-INF/spring
+Spring bean Configuration File 검색
+
+namespace security 선택
+
+D:\SpringStudy\수업자료
+security-context.txt 복사
+
+
+p610 web.xml 수정
+ <filter>
+ 	<filter-name>springSecurityFilterChain</filter-name>
+ 	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+ </filter>
+ <filter-mapping>
+ 	<filter-name>springSecurityFilterChain</filter-name>
+ 	<url-pattern>/*</url-pattern>
+ </filter-mapping>
+
+
+
+<context-param>
+	<param-name>contextConfigLocation</param-name>
+	<param-value>
+		/WEB-INF/spring/root-context.xml
+		/WEB-INF/spring/security-context.xml
+	</param-value>
+</context-param>
+
+p613
+org.bigdata.controller
+SampleController.java 클래스 생성
+
+views 폴더에 sample 폴더 생성
+
+all.jsp
+member.jsp
+admin.jsp 
+
+http://localhost:8080/sample/all
+http://localhost:8080/sample/member
+http://localhost:8080/sample/admin
+
+
+p618 security-context.xml 수정
+
+
+
+
+http://localhost:8080/sample/all
+
+
+http://localhost:8080/sample/member
+
+p621 security-context.xml 수정
+http://localhost:8080/sample/member
+
+
+
+
+
+p624 security-context.xml 수정
+
+http://localhost:8080/sample/member
+
+http://localhost:8080/sample/admin
+
+권한이 없는 경우 로그인 시 
+HTTP 상태 403 – 금지됨
+
+
+
+p625
+security-context.xml 수정
+
+
+
+p626
+예외발생시 url 처리하기 위한 Controller 작성
+org.bigdata.controller
+CommonController.java 생성
+
+
+p627
+accessError.jsp 코딩
+
+http://localhost:8080/sample/admin
+member
+member
+
+
+
+
+p629
+src/main/java
+org.bigdata.security 패키지 생성
+CustomAccessDeniedHandler.java 생성
+
+p630 security-context.xml 수정
+
+http://localhost:8080/sample/admin
+member
+member
+
+p631  security-context.xml 수정
+로그인화면 작성
+
+CommonController.java 수정
+- 로그인 url 처리
+
+
+
+
+run as 
+
+개발자가 작성한 로그인 화면 실행 url
+http://localhost:8080/customLogin
+
+
+http://localhost:8080/sample/admin
+
+
+
+p634 CSRF(Cross-Site Request Fogery)
+사용자의 의지와는 무관하게 공격자의 의도대로
+서버에 특정 요청을 하도록 하는것
+
+p636 
+CSRF 토큰
+CSRF 토큰은 사용자가 임의로 변하는 특정한 토큰값
+을 서버에서 체크하는 방식으로 서버는 클라이언트의
+요청이 실제 서버에서 허용한 요청이 맞는지 토큰을
+보고 판단
+
+p637
+정상 로그인 처리후 처리하려는 Handler작성
+
+p637-638
+src/main/java
+org.bigdata.security
+CustomLoginSuccessHandler.java 클래스 생성
+
+
+p639
+security-context.xml 수정
+
+http://localhost:8080/customLogin
+
+member
+member
+
+admin
+admin
+
+
+p640 로그아웃 처리
+security-context.xml 수정
+
+p640 CommonController.java 수정
+로그아웃 처리
+
+views 폴더에 customLogout.jsp 생성
+
+p642
+admin.jsp 수정
+<a href="/customLogout">로그아웃</a>
+member.jsp 수정
+<a href="/customLogout">로그아웃</a>
+
+
+http://localhost:8080/customLogin
+http://localhost:8080/customLogout
+
+

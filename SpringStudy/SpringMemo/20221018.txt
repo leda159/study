@@ -1,0 +1,205 @@
+
+views 폴더에 uploadAjaxAction.jsp 생성
+
+<h2>업로드 정상</h2>
+
+ajax를 이용하여 파일 업로드 처리 url
+http://localhost:8080/uploadAjax
+
+c:\\test\\image\\a.jpg
+
+
+
+
+p506
+uploadAjax.jsp 수정
+파일크기,확장자 체크
+
+
+
+http://localhost:8080/uploadAjax
+
+
+p508
+UploadController.java 수정
+
+
+
+
+
+
+p510
+파일명 중복방지를 위해 uuid 사용
+uuid(Universally Unique Identifier)
+원래는 네트워크 상에서 개체들을 구분하기 위한 용도로 사용
+
+파일 업로드시 파일명 중복을 방지하기 위해 사용하는
+값으로 8-4-4-4-12(총 32자리)로 구성된다.
+
+p510 UploadController.java 수정
+4a2889b5-707e-4e5e-bb87-618cf5014f70_B4172751734_l.jpg
+
+p513 
+썸네일 적용 pom.xml 수정
+https://mvnrepository.com/
+Thumbnailator 검색
+<dependency>
+    <groupId>net.coobird</groupId>
+    <artifactId>thumbnailator</artifactId>
+    <version>0.4.8</version>
+</dependency>
+
+p513 UploadController.java 수정
+checkImageType 메서드 추가
+
+image/gif
+image/jpg
+image/jpeg
+
+video/mp4
+video/avi
+
+
+p514 UploadController.java 수정
+
+test.jpg
+s_test.jpg
+
+
+
+
+http://localhost:8080/uploadAjax
+
+
+p517
+src/main/java
+org.bigdata.domain
+AttachFileDTO.java 클래스 생성
+
+p517
+UploadController.java 수정
+
+p519 uploadAjax.jsp 수정
+
+http://localhost:8080/uploadAjax
+
+
+
+
+
+p520 uploadAjax.jsp 수정
+
+p522 uploadAjax.jsp 수정
+p523 uploadAjax.jsp 수정
+
+
+
+http://localhost:8080/uploadAjax
+
+D:\SpringStudy\수업자료
+src
+ main
+   webapp
+      resources
+          img 폴더 생성하고  attach.png 파일을 복사
+
+p524-525
+uploadAjax.jsp 수정
+
+p526 UploadController.java 수정
+
+http://localhost:8080/display?fileName=2022/10/18/4c3609af-2d7e-47d7-8cef-46c110765375_B1451145389_l.jpg
+
+p528
+uploadAjax.jsp 수정
+
+
+http://localhost:8080/uploadAjax
+
+
+
+
+
+
+
+
+
+
+p530
+첨부파일 이미지 클릭시 원본이미지 보여주기
+일반파일 클릭시 다운로드 처리
+
+
+
+p531 UploadController.java 수정
+
+파일다운로드 테스트 url
+http://localhost:8080/download?fileName=4fab2b97-f24f-4953-8bf3-43640205b508_이미지2.jpg
+INFO : org.bigdata.controller.UploadController - resource:file [c:\upload\4fab2b97-f24f-4953-8bf3-43640205b508_이미지2.jpg]
+
+
+
+
+
+p532 UploadController.java 수정
+파일 다운로드 처리 적용
+
+
+http://localhost:8080/download?fileName=2022/10/18/test.jpg
+
+
+
+
+
+
+
+
+p533-534
+UploadController.java 수정
+웹브라우저 종류별로 처리 추가
+c:\\test\\upload\\test.jpg
+
+
+
+http://localhost:8080/download?fileName=2022/10/18/test.jpg
+
+
+p537
+uploadAjax.jsp 수정
+
+
+http://localhost:8080/uploadAjax
+
+a2ccfaeb-34c9-4031-9d96-03adda745939_테스트1.txt
+
+p539
+UploadController.java 수정
+다운로드시 파일명에서 uuid값 제외하기
+
+p540 uploadAjax.jsp 수정
+p541 uploadAjax.jsp 수정
+     -> showUploadedFile 함수 수정
+
+c:\\test\\2022\\10\\18\\test.jpg
+
+http://localhost:8080/upload?fileName=c:/test/10/18/test.jpg
+
+
+
+
+
+p542
+uploadAjax.jsp 수정
+
+
+
+
+p544 showImage 함수 수정
+
+
+
+
+
+
+
+

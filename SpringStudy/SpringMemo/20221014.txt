@@ -1,0 +1,254 @@
+
+page 425-426 get.jsp 수정
+
+page 427 get.jsp 수정
+댓글 수정,삭제 버튼 클릭 처리
+
+
+p429
+인덱스 생성
+create index idx_reply on tbl_reply (bno desc,rno asc);
+
+p431
+replyMapper.xml 에 인덱스 적용
+
+
+p431
+src/test/java
+org.bigdata.mapper
+ReplyMapperTests.java
+
+select bno,rno 
+  from tbl_reply 
+ order by bno
+
+http://localhost:8080/board/get?pageNum=1&amount=10&type=&keyword=&bno=51&bno=49&bno=51
+
+특정 게시글 조회 -> 뒤로가기 -> 다른게시글 클릭시
+이전 게시글 조회되는 문제 해결
+
+list.jsp 수정
+
+<%
+    //bf cache 중지 처리
+    response.setHeader("Cache-Control","no-cache,no-store");
+    response.setHeader("Pragma","no-cache");//캐시 저장 안함
+    //캐시 유효시간 없애기
+    response.setDateHeader("Expires",-1);
+
+%>
+
+drop index idx_reply;
+
+create index idx_reply on tbl_reply
+(bno desc,rno desc);
+
+p432 
+org.bigdata.mapper
+ReplyMapper.java 인터페이스 수정
+댓글행수구하기
+
+p433 ReplyMapper.xml 수정
+
+
+p433
+org.bigdata.domain
+ReplyPageDTO.java 클래스 생성
+
+
+
+p434
+org.bigdata.service
+ReplyService.java 수정
+ReplyServiceImpl.java 수정
+
+
+p435 ReplyController.java 수정
+
+select distinct bno from tbl_reply;
+
+댓글목록 확인
+http://localhost:8080/replies/pages/2/1
+
+
+
+p437 reply.js 수정
+
+
+p439 get.jsp 수정
+
+
+
+
+p441 get.jsp 수정
+
+
+insert into tbl_reply
+  select seq_reply.nextval,
+         bno,
+	 reply||seq_reply.nextval,
+ 	 replyer||seq_reply.nextval,
+	 sysdate,
+	 null
+    from tbl_reply
+   where bno = 51; 
+
+
+
+
+p446
+AOP(Aspect Orientied Programming)
+관점 지향 프로그래밍
+1.Aspect
+  공통기능을 모듈화 처리
+2.Advice
+  Target 객체의 JoinPoint에 삽입되어 동작하는
+  공통기능을 말함
+3.Target
+  Aspect를 적용하는 객체(혹은 메서드)
+4.JoinPoint
+  Target 객체에 선언된 보통 메서드를 말함
+5.PointCut
+  공통기능(횡단관심사)와 핵심기능이 결합되는 지점을
+  AspectJ라는 문법을 사용하여 선언
+6.Weaving
+  Advice를 Target의 핵심기능에 적용하는 과정을 말함
+7.Advisor
+  Advice + PointCut
+8.Proxy
+  Target 객체를 둘러싸고 있으면서 클라이언트의 요청을
+  대신 받아주는 Wrapping Object의 역할을 하며
+  클라이언트에서 Target을 Call하면 Proxy가 호출되어
+  Target의 메서드의 전,후처리를 해주는 대리자의 역할을
+  수행한다.
+ 
+
+SpringMVCExample 프로젝트 사용
+p450 pom.xml 수정
+<org.aspectj-version>1.9.0</org.aspectj-version>
+<org.slf4j-version>1.7.25</org.slf4j-version>
+
+
+mvnrepository
+aspectjrt 검색
+aspectjweaver  검색
+
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjrt</artifactId>
+    <version>1.9.0</version>
+</dependency>
+<dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.9.0</version>
+</dependency>
+
+
+
+p452-453
+src/main/java
+org.bigdata.service
+SampleService.java 인터페이스 생성
+SampleServiceImpl.java 클래스 생성
+
+p454 
+src/main/java
+org.bigdata.aop 패키지 생성
+LogAdvice.java 클래스 생성
+
+
+p455
+root-context.xml 수정
+AOP 지정 추가
+namespaces의 aop 클릭
+
+p457
+aop 테스트
+src/test/java
+org.bigdata.service
+SampleServiceTests.java 생성
+
+p458 SampleServiceTests.java 수정
+
+
+p459 LogAdvice.java 수정
+INFO : org.bigdata.aop.LogAdvice - =============================
+INFO : org.bigdata.aop.LogAdvice - str1:123
+INFO : org.bigdata.aop.LogAdvice - str2:456
+INFO : org.bigdata.service.SampleServiceTests - 579
+
+
+p460 LogAdvice.java 수정
+INFO : org.bigdata.aop.LogAdvice - =============================
+INFO : org.bigdata.aop.LogAdvice - str1:123
+INFO : org.bigdata.aop.LogAdvice - str2:abc
+INFO : org.bigdata.aop.LogAdvice - 예외발생java.lang.NumberFormatException: For input string: "abc"
+
+p461 @Around
+LogAdvice.java 수정
+INFO : org.bigdata.aop.LogAdvice - 매개변수:[123, 456]
+INFO : org.bigdata.aop.LogAdvice - =============================
+INFO : org.bigdata.aop.LogAdvice - str1:123
+INFO : org.bigdata.aop.LogAdvice - str2:456
+INFO : org.bigdata.aop.LogAdvice - 경과시간:7
+INFO : org.bigdata.service.SampleServiceTests - 579
+
+D:\SpringStudy\수업자료
+AspectJ문법예제.hwp 복사
+
+p467
+트랜잭션 처리 관련 jar 선언 확인
+spring-jdbc
+spring-tx
+HikariCP
+mybatis
+mybatis-spring
+log4jdbc-log4j2-jdbc4
+
+p468
+root-context.xml namespaces tx클릭
+
+p469
+root-context.xml 수정
+
+
+
+p471
+transaction 처리 테스트
+
+create table tbl_sample1(col1 varchar2(500));
+create table tbl_sample2(col2 varchar2(500));
+
+p471-472
+src/main/java
+org.bigdata.mapper
+Sample1Mapper.java 인터페이스 생성
+Sample2Mapper.java 인터페이스 생성
+
+p472-473
+org.bigdata.service
+SampleTxService.java 인터페이스 생성
+SampleTxServiceImpl.java 클래스 생성
+
+
+
+p474 트랜잭션 테스트
+src/test/java
+org.bigdata.service
+SampleTxServiceTests.java 생성
+
+p475
+truncate table tbl_sample1;
+
+p476
+SampleTxServiceImpl.java 수정
+
+tbl_sample2 테이블 컬럼 사이즈 변경 50->500
+
+
+
+
+
+
+
