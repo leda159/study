@@ -1,0 +1,143 @@
+
+p660
+src/main/java
+org.bigdata.domain
+MemberVO.java
+AuthVO.java 
+
+
+
+p662
+src/main/java
+org.bigdata.mapper
+MemberMapper.java 인터페이스 생성
+
+p662
+  org
+    bigdata
+        mapper
+            MemberMapper.xml 생성
+
+p664
+src/test/java
+org.bigdata.mapper
+MemberMapperTests.java 코딩
+
+select * from tbl_member_auth
+      where userid = 'admin90';
+
+권한추가
+insert into tbl_member_auth 
+     values ('admin90','ROLE_MEMBER');
+commit;
+
+INFO : org.bigdata.mapper.MemberMapperTests - MemberVO(userid=admin90, userpw=$2a$10$r7vMTEb8KaEQlRgHD/j0rOl9SW9jmgzLV4Ioh9r7Vu2jcI.pNlxpi, userName=관리자90, enabled=false, regDate=Tue Oct 25 10:34:07 KST 2022, updateDate=null, authList=[AuthVO(userid=admin90, auth=ROLE_ADMIN), AuthVO(userid=admin90, auth=ROLE_MEMBER)])
+INFO : org.bigdata.mapper.MemberMapperTests - AuthVO(userid=admin90, auth=ROLE_ADMIN)
+INFO : org.bigdata.mapper.MemberMapperTests - AuthVO(userid=admin90, auth=ROLE_MEMBER)
+
+
+
+
+p666
+src/main/java
+org.bigdata.security
+CustomUserDetailsService.java 코딩
+
+
+p667
+security-context.xml 수정
+
+
+http://localhost:8080/sample/admin
+admin90
+pw90
+
+WARN : org.bigdata.security.CustomUserDetailsService - 사용자 아이디:admin90
+
+
+p668
+org.bigdata.security.domain 패키지 생성
+CustomUser.java 코딩
+
+
+
+p670
+CustomUserDetailsService.java 수정
+
+
+
+http://localhost:8080/sample/admin
+admin90
+pw90
+
+WARN : org.bigdata.security.CustomUserDetailsService - 
+Mapper로 부터 리턴된 사용자 정보:MemberVO(userid=admin90, userpw=$2a$10$r7vMTEb8KaEQlRgHD/j0rOl9SW9jmgzLV4Ioh9r7Vu2jcI.pNlxpi, userName=관리자90, enabled=false, regDate=Tue Oct 25 10:34:07 KST 2022, updateDate=null, authList=[AuthVO(userid=admin90, auth=ROLE_ADMIN), AuthVO(userid=admin90, auth=ROLE_MEMBER)])
+INFO : org.bigdata.controller.SampleController - 관리자만 접근 허용
+
+
+
+
+p672
+views > sample > admin.jsp 수정
+
+
+http://localhost:8080/sample/admin
+admin90
+pw90
+
+p674 all.jsp 수정
+
+org.bigdata.security
+CustomLoginSuccessHandler.java 수정
+
+http://localhost:8080/sample/all
+
+user77
+pw77
+
+
+
+
+
+
+p677 자동로그인 기능 추가
+username: 사용자아이디
+series : 기기,브라우저별 쿠키를 구분하는 값
+token: 브라우저가 가지고 있는 쿠키의 값을 검증
+       할 인증값
+last_used: 가장 최근 자동로그인한 시간
+
+
+create table persistent_logins(
+  username varchar(64) not null,
+  series varchar(64) primary key,
+  token varchar(64) not null,
+  last_used timestamp not null
+);
+
+p678 security-context.xml 수정
+자동로그인 설정
+
+p679
+views > customLogin.jsp 수정
+
+http://localhost:8080/customLogin
+admin90
+pw90
+
+F12
+remember-me 쿠키생성
+
+
+p681
+security-context.xml 수정
+로그아웃시 remember-me 쿠키 삭제
+
+
+
+
+
+
+
+
+
